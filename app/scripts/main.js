@@ -34,6 +34,6 @@ require([
     'backbone',
     'views/NexoAppView'
 ], function (Backbone, NexoAppView) {
-    var Nexo = new NexoAppView();
+    new NexoAppView();
     Backbone.history.start();
 });

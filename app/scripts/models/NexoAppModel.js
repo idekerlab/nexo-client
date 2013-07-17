@@ -57,6 +57,9 @@ define([
 
             // Initialize NeXO view only.
             $('#network-title').html(nexoTree.get('name'));
+
+
+            console.log(nexoTree);
             var nexoView = new NetworkView({model: nexoTree});
             this.networkViewManager[nexoTree.get('name')] = nexoView;
 

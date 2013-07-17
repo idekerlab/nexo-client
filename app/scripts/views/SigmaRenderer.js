@@ -1,20 +1,28 @@
-/**
- * Created with JetBrains WebStorm.
- * User: kono
- * Date: 2013/07/15
- * Time: 12:09
- * To change this template use File | Settings | File Templates.
- */
-
 /*global define*/
 'use strict';
 
 define([
+
+    'underscore',
+    'backbone',
+    'EventHelper',
     'sigma'
-], function(sigma) {
+
+], function(_, Backbone, EventHelper, sigma) {
+
 
     var SigmaRenderer = sigma.init(document.getElementById('sigma-canvas'));
+//    SigmaRenderer = _.extend(SigmaRenderer, Backbone.Events);
+//
+//    SigmaRenderer.prototype = {
+//
+//        clear: function() {
+//            console.log('=========== CLEAR called =============');
+//        }
+//    };
+//
+//    console.log("SIGMA registering-----------------");
+//    //SigmaRenderer.listenTo(EventHelper, EventHelper.NETWORK_LOADED, _.bind(SigmaRenderer, SigmaRenderer.clear));
 
     return SigmaRenderer;
 });
-

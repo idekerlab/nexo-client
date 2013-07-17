@@ -10,11 +10,12 @@
 'use strict';
 
 define([
+    'bootstrap',
     'underscore',
     'backbone',
     'EventHelper',
     'views/SigmaRenderer'
-], function (_, Backbone, EventHelper, SigmaRenderer) {
+], function (jquery, _, Backbone, EventHelper, SigmaRenderer) {
 
     // Constants
     var DIM_COLOR = 'rgba(220,220,220,0.7)';
@@ -44,11 +45,24 @@ define([
             self.bindCommands();
 
             // Render the network once its model is ready.
-            EventHelper.listenToOnce(this.model, EventHelper.NETWORK_LOADED, _.bind(this.render, this));
+            EventHelper.listenToOnce(EventHelper, EventHelper.NETWORK_LOADED, _.bind(this.render, this));
         },
 
         render: function () {
             console.log('Rendering sigma view:');
+
+            // Clear all data
+            SigmaRenderer.emptyGraph();
+
+            // Load data from model
+            var graph = this.model.get("graph");
+            _.each(graph.nodes, function (node) {
+                SigmaRenderer.addNode(node.id, node);
+            });
+
+            _.each(graph.edges, function (edge) {
+                SigmaRenderer.addEdge(edge.id, edge.source, edge.target, edge);
+            });
 
             var networkConfig = this.model.get('config');
             var drawingProps = networkConfig.sigma.drawingProperties;
@@ -115,7 +129,7 @@ define([
                 var zoomButton = $(this);
                 var zoomCommand = zoomButton.attr('rel');
 
-                zoomButton.tooltip({delay: { show: 200, hide: 100 }});
+                //zoomButton.tooltip({delay: { show: 200, hide: 100 }});
 
                 zoomButton.click(function () {
 

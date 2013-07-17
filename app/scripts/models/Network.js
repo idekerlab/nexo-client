@@ -1,34 +1,37 @@
-/**
- * Created with JetBrains WebStorm.
- * User: kono
- * Date: 2013/07/15
- * Time: 11:48
- * To change this template use File | Settings | File Templates.
- */
-
 /*global define*/
 'use strict';
 
 define([
+
     'underscore',
     'backbone',
     'EventHelper'
+
 ], function (_, Backbone, EventHelper) {
 
     // Constants
     var LABEL_LENGTH_TH = 40;
-
 
     var Network = Backbone.Model.extend({
         // Only for getting data from fixed file location
         urlRoot: '/data',
 
         initialize: function () {
+            // Config should be given when initialized.
             var networkConfig = this.get('config');
+            if(networkConfig === undefined) {
+                console.error('Network configuration is undefined.');
+                return;
+            }
+
             this.id = networkConfig.networkData;
 
             // Data status:
             this.set({hasNetworkData: false});
+
+            // Empty graph
+            this.set('nodes', []);
+            this.set('edges', []);
 
             if (this.get('loadAtInit')) {
                 this.loadNetworkData();
@@ -36,8 +39,8 @@ define([
         },
 
         loadNetworkData: function () {
+            console.log("Loading network...");
             var self = this;
-            // Reset the Sigma view
 
             // FIXME: do this in view
             //SIGMA_RENDERER.emptyGraph();
@@ -45,10 +48,11 @@ define([
             var isNetworkLoaded = self.get('hasNetworkData');
 
             if (isNetworkLoaded) {
-                console.log('Alredy has data');
                 var graph = this.get('graph');
                 this.convertGraph(graph.nodes, graph.edges);
-                this.trigger(EventHelper.NETWORK_LOADED);
+//              this.trigger(EventHelper.NETWORK_LOADED);
+                console.log("Fire 1");
+                EventHelper.trigger(EventHelper.NETWORK_LOADED);
             } else {
                 // Feed data to network only when necessary
                 this.fetch({
@@ -57,7 +61,9 @@ define([
                         self.set({hasNetworkData: true});
                         var attr = data.attributes;
                         self.convertGraph(attr.nodes, attr.edges);
-                        self.trigger(EventHelper.NETWORK_LOADED);
+//                        self.trigger(EventHelper.NETWORK_LOADED);
+                        console.log("Fire 2");
+                        EventHelper.trigger(EventHelper.NETWORK_LOADED);
                     }
                 });
             }
@@ -85,27 +91,29 @@ define([
 
                 // FIXME
                 //SIGMA_RENDERER.addNode(node.id, node);
+                graph.nodes.push(node);
             });
 
             var idx = 0;
-            _.each(edges, function () {
+            _.each(edges, function (edge) {
 
-//                var newEdge = {
-//                    'source': edge.source,
-//                    'target': edge.target,
-//                    'weight': edge.weight,
-//                    'label': edge.relathinship,
-//                    'id': idx.toString()
-//                };
+                var newEdge = {
+                    'source': edge.source,
+                    'target': edge.target,
+                    'weight': edge.weight,
+                    'label': edge.relathinship,
+                    'id': idx.toString()
+                };
 
+                graph.edges.push(newEdge);
                 // FIXME
                 //SIGMA_RENDERER.addEdge(edgeId, source, target, newEdge);
                 idx++;
             });
 
             // Save the data to model
-            graph.nodes = nodes;
-            graph.edges = edges;
+//            graph.nodes = nodes;
+//            graph.edges = edges;
             this.set({graph: graph});
         }
     });
