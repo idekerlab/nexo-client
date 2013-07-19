@@ -17,8 +17,10 @@ define([
     'models/NexoAppModel',
     'views/CyNetworkView',
     'views/SearchResultTableView',
-    'views/NodeDetailsView'
-], function(_, Backbone, EventHelper, ViewEventHelper, NexoAppModel, CyNetworkView, SearchResultTableView, NodeDetailsView) {
+    'views/NodeDetailsView',
+    'views/NetworkManagerView'
+], function(_, Backbone, EventHelper, ViewEventHelper, NexoAppModel,
+            CyNetworkView, SearchResultTableView, NodeDetailsView, NetworkManagerView) {
 
     var CONFIG_FILE = '../app-config.json';
 
@@ -41,8 +43,11 @@ define([
                 subNetworkView: subNetworkView
             });
 
+            console.log("%%%%%%%%%%%%%%View init.  Waiting...");
+
             this.listenToOnce(this.model, EventHelper.INITIALIZED, function () {
 
+                console.log("%%%%%%%%%%%%%%Got event: initialized");
                 var currentNetworkView = self.model.get('currentNetworkView');
 
                 ViewEventHelper.listenTo(searchView.collection, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
@@ -60,9 +65,7 @@ define([
 
                 // Network collection manager
                 var networkCollection = self.model.get('networkManager');
-
-                // FIXME!!
-                // var networkManagerView = new NetworkManagerView({collection: networkCollection});
+                var networkManagerView = new NetworkManagerView({collection: networkCollection});
 
                 EventHelper.listenTo(networkCollection, EventHelper.NETWORK_SELECTED, _.bind(self.model.loadNetworkDataFile, self.model));
 
@@ -73,7 +76,6 @@ define([
                 // For interactions
                 EventHelper.listenTo(EventHelper, 'subnetworkRendered', _.bind(summaryView.interactionRenderer, summaryView));
 
-                console.log(self);
             });
         },
 

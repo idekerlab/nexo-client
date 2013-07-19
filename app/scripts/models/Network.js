@@ -1,3 +1,8 @@
+/**
+ * Network Model for the main view.
+ *
+ */
+
 /*global define*/
 'use strict';
 
@@ -14,7 +19,7 @@ define([
 
     var Network = Backbone.Model.extend({
         // Only for getting data from fixed file location
-        urlRoot: '/data',
+        urlRoot: 'data',
 
         initialize: function () {
             // Config should be given when initialized.
@@ -29,29 +34,20 @@ define([
             // Data status:
             this.set({hasNetworkData: false});
 
-            // Empty graph
-            this.set('nodes', []);
-            this.set('edges', []);
-
             if (this.get('loadAtInit')) {
                 this.loadNetworkData();
             }
         },
 
         loadNetworkData: function () {
-            console.log("Loading network...");
+            console.log('Loading network...');
             var self = this;
-
-            // FIXME: do this in view
-            //SIGMA_RENDERER.emptyGraph();
 
             var isNetworkLoaded = self.get('hasNetworkData');
 
             if (isNetworkLoaded) {
                 var graph = this.get('graph');
                 this.convertGraph(graph.nodes, graph.edges);
-//              this.trigger(EventHelper.NETWORK_LOADED);
-                console.log("Fire 1");
                 EventHelper.trigger(EventHelper.NETWORK_LOADED);
             } else {
                 // Feed data to network only when necessary
@@ -61,9 +57,9 @@ define([
                         self.set({hasNetworkData: true});
                         var attr = data.attributes;
                         self.convertGraph(attr.nodes, attr.edges);
-//                        self.trigger(EventHelper.NETWORK_LOADED);
-                        console.log("Fire 2");
                         EventHelper.trigger(EventHelper.NETWORK_LOADED);
+                        attr = null;
+                        data = null;
                     }
                 });
             }
@@ -76,7 +72,6 @@ define([
                 edges: []
             };
 
-
             _.each(nodes, function (node) {
                 var nodeLabel = node.label;
                 node.fullLabel = nodeLabel;
@@ -88,11 +83,9 @@ define([
                 if (node.color === undefined) {
                     node.color = 'rgba(33,30,45,0.4)';
                 }
-
-                // FIXME
-                //SIGMA_RENDERER.addNode(node.id, node);
                 graph.nodes.push(node);
             });
+
 
             var idx = 0;
             _.each(edges, function (edge) {
@@ -106,18 +99,14 @@ define([
                 };
 
                 graph.edges.push(newEdge);
-                // FIXME
-                //SIGMA_RENDERER.addEdge(edgeId, source, target, newEdge);
                 idx++;
             });
 
-            // Save the data to model
-//            graph.nodes = nodes;
-//            graph.edges = edges;
             this.set({graph: graph});
+            this.unset('nodes');
+            this.unset('edges');
         }
     });
 
     return Network;
-
 });

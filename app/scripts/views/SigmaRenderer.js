@@ -10,6 +10,8 @@ define([
 
 ], function(_, Backbone, EventHelper, sigma) {
 
+    console.log(EventHelper);
+    console.log(sigma);
 
     var SigmaRenderer = sigma.init(document.getElementById('sigma-canvas'));
 //    SigmaRenderer = _.extend(SigmaRenderer, Backbone.Events);

@@ -55,7 +55,7 @@ define([
             SigmaRenderer.emptyGraph();
 
             // Load data from model
-            var graph = this.model.get("graph");
+            var graph = this.model.get('graph');
             _.each(graph.nodes, function (node) {
                 SigmaRenderer.addNode(node.id, node);
             });
@@ -129,7 +129,7 @@ define([
                 var zoomButton = $(this);
                 var zoomCommand = zoomButton.attr('rel');
 
-                //zoomButton.tooltip({delay: { show: 200, hide: 100 }});
+                zoomButton.tooltip({delay: { show: 200, hide: 100 }});
 
                 zoomButton.click(function () {
 
@@ -183,6 +183,8 @@ define([
             var url = '/' + nodeId + '/path';
             $.getJSON(url, function (path) {
                 self.showPath(path);
+                console.log('Path found:');
+                console.log(path);
             });
         },
 

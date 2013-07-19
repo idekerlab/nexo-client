@@ -40,14 +40,14 @@ define([
 
             this.collection = new SearchResults();
             var tableObject = $('#result-table');
-            tableObject.find('tr').live('click', function () {
-                tableObject.find('tr').each(function () {
-                    $(this).removeClass('selected');
-                });
-                $(this).addClass('selected');
-                var id = $(this).children('td')[0].firstChild.nodeValue;
-                self.collection.trigger(EventHelper.SEARCH_RESULT_SELECTED, id);
-            });
+//            tableObject.find('tr').live('click', function () {
+//                tableObject.find('tr').each(function () {
+//                    $(this).removeClass('selected');
+//                });
+//                $(this).addClass('selected');
+//                var id = $(this).children('td')[0].firstChild.nodeValue;
+//                self.collection.trigger(EventHelper.SEARCH_RESULT_SELECTED, id);
+//            });
 
             tableObject.hide();
         },

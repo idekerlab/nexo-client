@@ -26,7 +26,7 @@ require.config({
         backbone: '../bower_components/backbone-amd/backbone',
         underscore: '../bower_components/underscore-amd/underscore',
         bootstrap: 'vendor/bootstrap',
-        sigma: 'vendor/sigma/sigma'
+        sigma: 'vendor/sigma'
     }
 });
 

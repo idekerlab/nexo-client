@@ -15,8 +15,9 @@ define([
     'backbone',
     'EventHelper',
     'models/Network',
+    'collections/Networks',
     'views/NetworkView'
-], function (_, Backbone, EventHelper, Network, NetworkView) {
+], function (_, Backbone, EventHelper, Network, Networks, NetworkView) {
 
     var DEFAULT_NETWORK = 'NeXO';
 
@@ -29,11 +30,17 @@ define([
             $.getJSON(self.get('settingFileLocation'), function (configObject) {
                 self.set('appConfig', configObject);
 
+                var networkManager = new Networks();
+                self.set("networkManager", networkManager);
+
                 // Load networks
                 self.loadNetworkSettings();
 
                 // Fire event: Application is ready to use.
                 self.trigger(EventHelper.INITIALIZED);
+
+                console.log("=============== App initialized.  Networks:@@@@@@@@@@@@@@@@@");
+                console.log(networkManager);
             });
         },
 
@@ -52,7 +59,7 @@ define([
 
                     tree = new Network({name: network.name, config: network, loadAtInit: false});
                 }
-//                this.get('networkManager').add(tree);
+                this.get('networkManager').add(tree);
             }
 
             // Initialize NeXO view only.
