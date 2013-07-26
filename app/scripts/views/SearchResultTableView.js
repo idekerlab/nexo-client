@@ -16,9 +16,9 @@ define([
     'EventHelper',
     'collections/SearchResults',
     'views/SigmaRenderer',
-    'views/SearchView'
+    'views/SearchResultView'
 
-], function (jquery, _, Backbone, EventHelper, SearchResults, SigmaRenderer, SearchView) {
+], function (jquery, _, Backbone, EventHelper, SearchResults, SigmaRenderer, SearchResultView) {
 
     var ID_SEARCH_RESULTS = '#mainpanel';
 
@@ -35,22 +35,49 @@ define([
             'click #clear-button': 'clearButtonPressed',
             'click #help-button': 'helpButtonPressed',
             'keypress #query': 'searchDatabase',
-            'click .radio': 'searchModeChanged'
+            'click .radio': 'searchModeChanged',
+
+            'click tr': 'rowClick'
         },
+
+        rowClick: function(row) {
+
+            // Clear selection
+            var tableObject = this.$('#result-table');
+            tableObject.find('tr').each(function () {
+                $(this).removeClass('selected');
+            });
+
+
+            console.log('2####-------> TR');
+            console.log(row);
+            console.log($(row.currentTarget));
+
+            $(row.currentTarget).addClass('selected');
+            var id = $(row)[0].currentTarget.firstChild.innerText;
+            this.collection.trigger(EventHelper.SEARCH_RESULT_SELECTED, id);
+            console.log('FIRING table event : ' + id);
+        },
+
 
         initialize: function () {
 //            var self = this;
 
             this.collection = new SearchResults();
 
-            var tableObject = $('#result-table');
-//            tableObject.find('tr').live('click', function () {
+            var tableObject = this.$('#result-table');
+//            console.log('TABLE2:');
+            console.log(tableObject);
+//            var tableRecord = tableObject.find('tr');
+
+//            tableRecord.bind('click', function () {
 //                tableObject.find('tr').each(function () {
 //                    $(this).removeClass('selected');
 //                });
 //                $(this).addClass('selected');
 //                var id = $(this).children('td')[0].firstChild.nodeValue;
 //                self.collection.trigger(EventHelper.SEARCH_RESULT_SELECTED, id);
+//                console.log('FIRING table event :');
 //            });
             tableObject.hide();
         },
@@ -112,7 +139,7 @@ define([
 
         renderResult: function (result, query) {
 
-            var resultView = new SearchView({
+            var resultView = new SearchResultView({
                 model: result
             });
 

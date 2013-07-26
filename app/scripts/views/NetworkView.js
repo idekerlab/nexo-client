@@ -107,7 +107,7 @@ define([
             var lastNode = this.model.get('lastSelected');
             console.log('Last = ' + lastNode);
             console.log('Zooming to ' + id);
-            if (lastNode !== null) {
+            if (lastNode !== undefined) {
                 // Clear last selection
                 lastNode.color = lastNode.originalColor;
                 lastNode.originalColor = null;

@@ -17,17 +17,7 @@ require.config({
             deps: ['jquery'],
             exports: 'jquery'
         },
-        arbor: {
-            deps: [
-                'jquery'
-            ],
-            exports: 'arbor'
-        },
         cytoscape: {
-            deps: [
-                'jquery',
-                'arbor'
-            ],
             exports: 'cytoscape'
         },
         highcharts: {

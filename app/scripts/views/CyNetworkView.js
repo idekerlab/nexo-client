@@ -11,17 +11,14 @@
 
 define([
 
-    'bootstrap',
     'backbone',
     'EventHelper',
     'models/CyNetwork',
-    'arbor',
     'cytoscape'
 
-], function (jquery,Backbone, EventHelper, CyNetwork, arbor, cytoscape) {
+], function (Backbone, EventHelper, CyNetwork, cytoscape) {
 
-    console.log("================> ARBOR is");
-    console.log(arbor);
+    var CYTOSCAPE_TAG = '#cyjs';
 
     var WAITING_BAR = '<div id="fadingBarsG">' +
         '<div id="fadingBarsG_1" class="fadingBarsG"></div>' +
@@ -37,35 +34,30 @@ define([
 
         el: '#cy-network',
 
-        initialize: function() {
-
-        },
-
-
         render: function () {
-            $('#cyjs').cytoscape(this.initSubnetworkView());
+            $(CYTOSCAPE_TAG).cytoscape(this.initSubnetworkView());
         },
 
         networkSelected: function (e) {
-            console.log('**********************************Network Selected: ' + e);
+            var currentNetwork = e[0].get('name');
+            if(this.model !== undefined && currentNetwork !== undefined) {
+                this.model.set('currentNetwork', currentNetwork);
+            }
+            console.log('**********************************Network Selected: ' + currentNetwork);
         },
 
         update: function (nodeId) {
-            console.log('###**********************************Update called: ' + nodeId);
-            $('#cyjs').empty();
+            $(CYTOSCAPE_TAG).empty();
 
             var currentNetwork = '';
             if (this.model !== undefined) {
                 currentNetwork = this.model.get('currentNetwork');
             } else {
                 currentNetwork = 'NeXO';
-
             }
 
             if (currentNetwork !== 'NeXO') {
                 // No need to update
-                console.log('###**BUG!!!!!!!!!!!!!!!!!!');
-                $('#cyjs').empty();
                 return;
             }
 
@@ -82,7 +74,7 @@ define([
 
         loadData: function () {
             var self = this;
-            $('#cyjs').append(WAITING_BAR);
+            $(CYTOSCAPE_TAG).append(WAITING_BAR);
             this.model.fetch({
                 success: function (data) {
 
@@ -119,7 +111,6 @@ define([
 
         initSubnetworkView: function () {
 
-            console.log('###************************RENDERING!!!!!!!!');
             var self = this;
 
             var options = {
@@ -174,6 +165,5 @@ define([
             return options;
         }
     });
-
     return CyNetworkView;
 });

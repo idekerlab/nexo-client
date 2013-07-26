@@ -10,8 +10,10 @@
 'use strict';
 
 define([
+
     'underscore',
     'backbone'
+
 ], function (_, Backbone) {
 
     var SearchView = Backbone.View.extend({
@@ -56,11 +58,8 @@ define([
                             hits[key] = finalText;
                         }
                     });
-//                    console.log(hits);
-//                    console.log(query);
                 }
             });
-
 
             var newRow = '<tr><td>' + name + '</td><td>' + label + '</td><td style="width: 190px"><ul>';
             _.each(_.keys(hits), function (key) {

@@ -10,19 +10,21 @@
 'use strict';
 
 define([
+
     'backbone'
+
 ], function (Backbone) {
 
     var CyNetwork = Backbone.Model.extend({
 
         initialize: function () {
             this.updateURL();
-            console.log("URL = " + this.url);
         },
 
         updateURL: function () {
-            this.url = "/" + this.get("termId") + "/interactions";
+            this.url = '/' + this.get('termId') + '/interactions';
         }
+
     });
 
     return CyNetwork;
