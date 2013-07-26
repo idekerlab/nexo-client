@@ -11,37 +11,69 @@
 
 define([
 
+    'bootstrap',
     'backbone',
     'EventHelper',
+    'models/CyNetwork',
+    'arbor',
+    'cytoscape'
 
-], function (Backbone, EventHelper) {
+], function (jquery,Backbone, EventHelper, CyNetwork, arbor, cytoscape) {
+
+    console.log("================> ARBOR is");
+    console.log(arbor);
+
+    var WAITING_BAR = '<div id="fadingBarsG">' +
+        '<div id="fadingBarsG_1" class="fadingBarsG"></div>' +
+        '<div id="fadingBarsG_2" class="fadingBarsG"></div>' +
+        '<div id="fadingBarsG_3" class="fadingBarsG"></div>' +
+        '<div id="fadingBarsG_4" class="fadingBarsG"></div>' +
+        '<div id="fadingBarsG_5" class="fadingBarsG"></div>' +
+        '<div id="fadingBarsG_6" class="fadingBarsG"></div>' +
+        '<div id="fadingBarsG_7" class="fadingBarsG"></div>' +
+        '<div id="fadingBarsG_8" class="fadingBarsG"></div></div>';
 
     var CyNetworkView = Backbone.View.extend({
 
-        el: "#cy-network",
+        el: '#cy-network',
 
-        events: {},
+        initialize: function() {
+
+        },
+
 
         render: function () {
-            $("#cyjs").cytoscape(this.initSubnetworkView());
+            $('#cyjs').cytoscape(this.initSubnetworkView());
+        },
+
+        networkSelected: function (e) {
+            console.log('**********************************Network Selected: ' + e);
         },
 
         update: function (nodeId) {
-            $("#cyjs").empty();
+            console.log('###**********************************Update called: ' + nodeId);
+            $('#cyjs').empty();
 
-            // TODO: remove dependency!
-            // check current network model:
-            var currentNetwork = app.model.get("currentNetwork");
-            var currentNetworkName = currentNetwork.get("name");
-            if (currentNetworkName !== DEFAULT_NETWORK) {
+            var currentNetwork = '';
+            if (this.model !== undefined) {
+                currentNetwork = this.model.get('currentNetwork');
+            } else {
+                currentNetwork = 'NeXO';
+
+            }
+
+            if (currentNetwork !== 'NeXO') {
                 // No need to update
+                console.log('###**BUG!!!!!!!!!!!!!!!!!!');
+                $('#cyjs').empty();
                 return;
             }
 
             if (this.model === undefined || this.model === null) {
-                this.model = new CyNetwork({namespace: "nexo", termId: nodeId});
+                this.model = new CyNetwork({namespace: 'nexo', termId: nodeId});
+                this.model.set('currentNetwork', 'NeXO');
             } else {
-                this.model.set("termId", nodeId);
+                this.model.set('termId', nodeId);
                 this.model.updateURL();
             }
 
@@ -50,14 +82,14 @@ define([
 
         loadData: function () {
             var self = this;
-            $("#cyjs").append(WAITING_BAR);
+            $('#cyjs').append(WAITING_BAR);
             this.model.fetch({
                 success: function (data) {
 
                     var graph = data.attributes.graph;
-                    var cy = self.model.get("cy");
+                    var cy = self.model.get('cy');
 
-                    EventHelper.trigger("subnetworkRendered", graph);
+                    EventHelper.trigger('subnetworkRendered', graph);
 
                     cy.load(graph.elements,
 
@@ -65,20 +97,19 @@ define([
                             if (graph.elements.edges.length > 600) {
                                 return {
                                     name: 'circle'
-                                }
+                                };
                             } else {
                                 return {
                                     name: 'arbor',
                                     friction: 0.1,
                                     nodeMass: 2,
-//                                        repulsion: 19800,
                                     edgeLength: 5.5
-                                }
+                                };
                             }
                         })()
                         ), function () {
-                            console.log("Layout finished.");
-                            $("#fadingBarsG").remove();
+                            console.log('Layout finished.');
+                            $('#fadingBarsG').remove();
 //                            VIEW_MANAGER.setSubnetwork(cy.elements);
 
                         });
@@ -88,6 +119,7 @@ define([
 
         initSubnetworkView: function () {
 
+            console.log('###************************RENDERING!!!!!!!!');
             var self = this;
 
             var options = {
@@ -95,6 +127,17 @@ define([
                 boxSelectionEnabled: false,
                 minZoom: 0.1,
                 maxZoom: 5,
+
+                elements: {
+                    nodes: [],
+                    edges: []
+                },
+
+                ready: function () {
+                    self.model.set('cy', this);
+                    self.model.set('options', options);
+                    self.loadData();
+                },
 
                 style: cytoscape.stylesheet()
                     .selector('node')
@@ -109,8 +152,8 @@ define([
                         'width': 5,
                         'height': 5,
                         'border-color': 'white',
-                        "background-color": "rgba(222,222,222,0.9)",
-                        "shape": "ellipse"
+                        'background-color': 'rgba(222,222,222,0.9)',
+                        'shape': 'ellipse'
                     })
                     .selector(':selected')
                     .css({
@@ -123,25 +166,14 @@ define([
                     .selector('edge')
                     .css({
                         'width': 0.5,
-                        "line-color": "#00ee11",
-                        "opacity": 0.8
-                    }),
+                        'line-color': '#00ee11',
+                        'opacity': 0.8
+                    })
+                };
 
-                elements: {
-                    nodes: [],
-                    edges: []
-                },
-
-                ready: function () {
-                    self.model.set("cy", this);
-                    self.model.set("options", options);
-                    self.loadData();
-                }
-            };
             return options;
         }
     });
-
 
     return CyNetworkView;
 });

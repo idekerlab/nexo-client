@@ -56,6 +56,10 @@ define([
 
             // Load data from model
             var graph = this.model.get('graph');
+            if(graph === undefined) {
+                return;
+            }
+
             _.each(graph.nodes, function (node) {
                 SigmaRenderer.addNode(node.id, node);
             });

@@ -31,7 +31,7 @@ define([
                 self.set('appConfig', configObject);
 
                 var networkManager = new Networks();
-                self.set("networkManager", networkManager);
+                self.set('networkManager', networkManager);
 
                 // Load networks
                 self.loadNetworkSettings();
@@ -39,7 +39,6 @@ define([
                 // Fire event: Application is ready to use.
                 self.trigger(EventHelper.INITIALIZED);
 
-                console.log("=============== App initialized.  Networks:@@@@@@@@@@@@@@@@@");
                 console.log(networkManager);
             });
         },

@@ -17,23 +17,36 @@ require.config({
             deps: ['jquery'],
             exports: 'jquery'
         },
-        sigma: {
-            exports: 'sigma'
+        arbor: {
+            deps: [
+                'jquery'
+            ],
+            exports: 'arbor'
+        },
+        cytoscape: {
+            deps: [
+                'jquery',
+                'arbor'
+            ],
+            exports: 'cytoscape'
+        },
+        highcharts: {
+            exports: 'highcharts'
         }
     },
     paths: {
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone-amd/backbone',
         underscore: '../bower_components/underscore-amd/underscore',
+        highcharts: '../bower_components/highcharts/highcharts',
         bootstrap: 'vendor/bootstrap',
-        sigma: 'vendor/sigma'
+        cytoscape: '../bower_components/cytoscape.js/cytoscape',
+        arbor: '../bower_components/cytoscape.js/arbor'
     }
 });
 
 require([
-    'backbone',
     'views/NexoAppView'
-], function (Backbone, NexoAppView) {
+], function (NexoAppView) {
     new NexoAppView();
-    Backbone.history.start();
 });

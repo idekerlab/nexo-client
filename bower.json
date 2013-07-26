@@ -10,7 +10,8 @@
     "underscore-amd": "~1.5.1",
     "modernizr": "~2.6.2",
     "sigma": "latest",
-    "highcharts.com": "~v3.0.2"
+    "highcharts.com": "~v3.0.2",
+    "arbor": "latest"
   },
   "devDependencies": {}
 }

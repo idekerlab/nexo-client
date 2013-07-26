@@ -11,12 +11,17 @@
 
 define([
     'backbone'
-], function(Backbone) {
+], function (Backbone) {
 
     var CyNetwork = Backbone.Model.extend({
 
         initialize: function () {
-            this.url = '/' + this.get('termId') + '/interactions';
+            this.updateURL();
+            console.log("URL = " + this.url);
+        },
+
+        updateURL: function () {
+            this.url = "/" + this.get("termId") + "/interactions";
         }
     });
 

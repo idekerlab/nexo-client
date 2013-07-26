@@ -43,11 +43,9 @@ define([
                 subNetworkView: subNetworkView
             });
 
-            console.log("%%%%%%%%%%%%%%View init.  Waiting...");
 
             this.listenToOnce(this.model, EventHelper.INITIALIZED, function () {
 
-                console.log("%%%%%%%%%%%%%%Got event: initialized");
                 var currentNetworkView = self.model.get('currentNetworkView');
 
                 ViewEventHelper.listenTo(searchView.collection, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
@@ -65,9 +63,10 @@ define([
 
                 // Network collection manager
                 var networkCollection = self.model.get('networkManager');
-                var networkManagerView = new NetworkManagerView({collection: networkCollection});
+                new NetworkManagerView({collection: networkCollection});
 
                 EventHelper.listenTo(networkCollection, EventHelper.NETWORK_SELECTED, _.bind(self.model.loadNetworkDataFile, self.model));
+                EventHelper.listenTo(networkCollection, EventHelper.NETWORK_SELECTED, _.bind(subNetworkView.networkSelected, subNetworkView));
 
                 // Listening to the current network view change event.
                 self.listenTo(self.model, 'change:currentNetworkView', self.networkViewSwitched);

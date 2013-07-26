@@ -1,0 +1,249 @@
+
+{
+    "graph": {
+        "elements": {
+            "nodes": [
+                {
+                    "data": {
+                        "id": "YDL071C"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "MED1"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "SWR1"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "ARP6"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "VPS72"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YTA7"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "EAF3"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "SWC3"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF1"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "GLC7"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YMR075C-A"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YBR238C"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YBR277C"
+                    }
+                }
+            ],
+            "edges": [
+                {
+                    "data": {
+                        "id": "YDL071C(genetic) MED1",
+                        "source": "YDL071C",
+                        "target": "MED1",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YDL071C(genetic) SWR1",
+                        "source": "YDL071C",
+                        "target": "SWR1",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YDL071C(genetic) ARP6",
+                        "source": "YDL071C",
+                        "target": "ARP6",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YDL071C(genetic) VPS72",
+                        "source": "YDL071C",
+                        "target": "VPS72",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YDL071C(genetic) YTA7",
+                        "source": "YDL071C",
+                        "target": "YTA7",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YDL071C(genetic) EAF3",
+                        "source": "YDL071C",
+                        "target": "EAF3",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YDL071C(genetic) SWC3",
+                        "source": "YDL071C",
+                        "target": "SWC3",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "YDL071C(genetic) BDF2",
+                        "source": "YDL071C",
+                        "target": "BDF2",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(physical) BDF1",
+                        "source": "BDF2",
+                        "target": "BDF1",
+                        "interaction": "physical"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(physical) GLC7",
+                        "source": "BDF2",
+                        "target": "GLC7",
+                        "interaction": "physical"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) YMR075C-A",
+                        "source": "BDF2",
+                        "target": "YMR075C-A",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) YDL071C",
+                        "source": "BDF2",
+                        "target": "YDL071C",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) EAF3",
+                        "source": "BDF2",
+                        "target": "EAF3",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) SWR1",
+                        "source": "BDF2",
+                        "target": "SWR1",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) VPS72",
+                        "source": "BDF2",
+                        "target": "VPS72",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) YTA7",
+                        "source": "BDF2",
+                        "target": "YTA7",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) ARP6",
+                        "source": "BDF2",
+                        "target": "ARP6",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) YBR238C",
+                        "source": "BDF2",
+                        "target": "YBR238C",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) YBR277C",
+                        "source": "BDF2",
+                        "target": "YBR277C",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(genetic) SWC3",
+                        "source": "BDF2",
+                        "target": "SWC3",
+                        "interaction": "genetic"
+                    }
+                },
+                {
+                    "data": {
+                        "id": "BDF2(yeastNet) BDF1",
+                        "source": "BDF2",
+                        "target": "BDF1",
+                        "interaction": "yeastNet"
+                    }
+                }
+            ]
+        }
+    }
+}

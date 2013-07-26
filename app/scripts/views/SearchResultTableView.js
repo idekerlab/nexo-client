@@ -9,13 +9,16 @@
 /*global define*/
 'use strict';
 define([
+
+    'bootstrap',
     'underscore',
     'backbone',
     'EventHelper',
     'collections/SearchResults',
     'views/SigmaRenderer',
     'views/SearchView'
-], function (_, Backbone, EventHelper, SearchResults, SigmaRenderer, SearchView) {
+
+], function (jquery, _, Backbone, EventHelper, SearchResults, SigmaRenderer, SearchView) {
 
     var ID_SEARCH_RESULTS = '#mainpanel';
 
@@ -36,9 +39,10 @@ define([
         },
 
         initialize: function () {
-            var self = this;
+//            var self = this;
 
             this.collection = new SearchResults();
+
             var tableObject = $('#result-table');
 //            tableObject.find('tr').live('click', function () {
 //                tableObject.find('tr').each(function () {
@@ -48,7 +52,6 @@ define([
 //                var id = $(this).children('td')[0].firstChild.nodeValue;
 //                self.collection.trigger(EventHelper.SEARCH_RESULT_SELECTED, id);
 //            });
-
             tableObject.hide();
         },
 

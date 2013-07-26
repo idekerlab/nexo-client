@@ -3,14 +3,11 @@
 
 define([
 
-    'underscore',
-    'backbone',
-    'EventHelper',
-    'sigma'
+    'vendor/sigmamin'
 
-], function(_, Backbone, EventHelper, sigma) {
+], function(sigma) {
 
-    console.log(EventHelper);
+    console.log('@@@Sigma3 is:');
     console.log(sigma);
 
     var SigmaRenderer = sigma.init(document.getElementById('sigma-canvas'));

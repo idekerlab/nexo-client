@@ -11,10 +11,13 @@
 
 
 define([
+
     'underscore',
     'backbone',
     'models/NodeDetails',
-    'views/SigmaRenderer'
+    'views/SigmaRenderer',
+    'highcharts'
+
 ], function (_, Backbone, NodeDetails, SigmaRenderer) {
 
     var ID_SUMMARY_PANEL = '#summary-panel';
