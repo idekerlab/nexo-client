@@ -48,37 +48,15 @@ define([
                 $(this).removeClass('selected');
             });
 
-
-            console.log('2####-------> TR');
-            console.log(row);
-            console.log($(row.currentTarget));
-
             $(row.currentTarget).addClass('selected');
             var id = $(row)[0].currentTarget.firstChild.innerText;
             this.collection.trigger(EventHelper.SEARCH_RESULT_SELECTED, id);
-            console.log('FIRING table event : ' + id);
         },
 
 
         initialize: function () {
-//            var self = this;
-
             this.collection = new SearchResults();
-
             var tableObject = this.$('#result-table');
-//            console.log('TABLE2:');
-            console.log(tableObject);
-//            var tableRecord = tableObject.find('tr');
-
-//            tableRecord.bind('click', function () {
-//                tableObject.find('tr').each(function () {
-//                    $(this).removeClass('selected');
-//                });
-//                $(this).addClass('selected');
-//                var id = $(this).children('td')[0].firstChild.nodeValue;
-//                self.collection.trigger(EventHelper.SEARCH_RESULT_SELECTED, id);
-//                console.log('FIRING table event :');
-//            });
             tableObject.hide();
         },
 
@@ -217,6 +195,10 @@ define([
             resultTableElement.slideUp(500).empty();
             $('#query').val('');
             this.trigger(EventHelper.CLEAR);
+        },
+
+        helpButtonPressed: function() {
+            window.open('../documentation.html');
         }
     });
 

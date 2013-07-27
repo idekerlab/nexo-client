@@ -104,10 +104,15 @@ define([
         },
 
         zoomTo: function (id) {
+            // Do nothing if ID is invalid.
+            if(id === undefined) {
+                return;
+            }
+
             var lastNode = this.model.get('lastSelected');
             console.log('Last = ' + lastNode);
             console.log('Zooming to ' + id);
-            if (lastNode !== undefined) {
+            if (lastNode !== undefined && lastNode !== null) {
                 // Clear last selection
                 lastNode.color = lastNode.originalColor;
                 lastNode.originalColor = null;
