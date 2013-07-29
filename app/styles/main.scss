@@ -27,14 +27,18 @@ h4 {
 }
 
 .flat-btn {
-  font-family: nexo;
   font-size: 16px;
-  background-color: #ffffff;
-  color: red;
+  background-color: #0066bb;
   padding: 0px;
   border: 0;
-  margin-right: 5px;
   margin-left: 5px;
+}
+
+.mini-btn-mod {
+  margin-left: 2px;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .flat {
@@ -44,6 +48,8 @@ h4 {
 #query {
   float: left;
 }
+
+
 
 .font-button {
   font-size: 20px;
@@ -75,7 +81,7 @@ h4 {
 #mainpanel {
   margin-top: 5px;
   margin-left: 5px;
-  width: 300px;
+  width: 350px;
   padding-top: 0.2em;
   padding-right: 0.7em;
   padding-left: 0.7em;
@@ -164,30 +170,6 @@ h4 {
   cursor: pointer;
   float: left;
 }
-
-/*#commands .z[rel=center] {*/
-/*background-image: url('../images/fit.png');*/
-/*}*/
-
-/*#commands .z[rel=in] {*/
-/*background-image: url('../images/zoomin.png');*/
-/*}*/
-
-/*#commands .z[rel=out] {*/
-/*background-image: url('../images/zoomout.png');*/
-/*}*/
-
-/*#commands .s[rel=swap] {*/
-/*background-image: url('../images/swap.png');*/
-/*}*/
-
-/*#commands .s[rel=refresh] {*/
-/*background-image: url('../images/switch.png');*/
-/*}*/
-
-/*#commands .s[rel=settings] {*/
-/*background-image: url('../images/settings.png');*/
-/*}*/
 
 .tabbable {
   padding-right: 10px;

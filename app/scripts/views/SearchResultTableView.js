@@ -27,6 +27,7 @@ define([
         el: ID_SEARCH_RESULTS,
 
         isDisplay: false,
+        isAdvanced: false,
 
         nameSpace: 'NEXO',
 
@@ -36,6 +37,8 @@ define([
             'click #help-button': 'helpButtonPressed',
             'keypress #query': 'searchDatabase',
             'click .radio': 'searchModeChanged',
+
+            'click #advanced-button': 'advancedButtonPressed',
 
             'click tr': 'rowClick'
         },
@@ -58,6 +61,8 @@ define([
             this.collection = new SearchResults();
             var tableObject = this.$('#result-table');
             tableObject.hide();
+            var enrich = this.$('#enrich');
+            enrich.hide();
         },
 
 
@@ -199,6 +204,18 @@ define([
 
         helpButtonPressed: function() {
             window.open('../documentation.html');
+        },
+
+        advancedButtonPressed: function () {
+            var advancedPanel = $('#enrich');
+            advancedPanel.slideToggle(500);
+            if(this.isAdvanced) {
+                this.$('#advanced-button').attr('data-icon','d');
+                this.isAdvanced = false;
+            } else {
+                this.$('#advanced-button').attr('data-icon','u');
+                this.isAdvanced = true;
+            }
         }
     });
 
