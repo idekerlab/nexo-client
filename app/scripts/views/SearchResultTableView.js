@@ -39,11 +39,12 @@ define([
             'click .radio': 'searchModeChanged',
 
             'click #advanced-button': 'advancedButtonPressed',
+            'click #enrich-submit': 'runEnrichment',
 
             'click tr': 'rowClick'
         },
 
-        rowClick: function(row) {
+        rowClick: function (row) {
 
             // Clear selection
             var tableObject = this.$('#result-table');
@@ -202,20 +203,69 @@ define([
             this.trigger(EventHelper.CLEAR);
         },
 
-        helpButtonPressed: function() {
+        helpButtonPressed: function () {
             window.open('../documentation.html');
         },
 
         advancedButtonPressed: function () {
             var advancedPanel = $('#enrich');
             advancedPanel.slideToggle(500);
-            if(this.isAdvanced) {
-                this.$('#advanced-button').attr('data-icon','d');
+            if (this.isAdvanced) {
+                this.$('#advanced-button').attr('data-icon', 'd');
                 this.isAdvanced = false;
             } else {
-                this.$('#advanced-button').attr('data-icon','u');
+                this.$('#advanced-button').attr('data-icon', 'u');
                 this.isAdvanced = true;
             }
+        },
+
+        runEnrichment: function () {
+
+
+
+            var params = this.validateEnrichParams();
+
+//            console.log("SUBMIUT: " + params.genes + ", " + params.pval + ", " + params['min-assigned']);
+
+//            $.post(
+//                'http://malbec.ucsd.edu:5000/enrich',
+//
+//                params,
+//                function (data) {
+//                    console(data);
+//                }
+//            );
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://malbec.ucsd.edu:5000/enrich',
+                data: params,
+                success: function(data){
+
+                    console(data);
+                }
+            });
+
+        },
+
+        validateEnrichParams: function () {
+            var params = {};
+
+            var genes = this.$('#gene-list').val();
+            var pval = this.$('#pval').val();
+//            var minGenes = this.$('#num-genes').val();
+
+            if (pval === undefined) {
+                pval = 0.01;
+            } else {
+                pval = parseFloat(pval);
+            }
+
+            params.genes = genes;
+            params.alpha = pval;
+            params['min-assigned'] = 2;
+
+            return params;
         }
     });
 

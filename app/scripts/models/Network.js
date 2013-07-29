@@ -53,7 +53,6 @@ define([
                 // Feed data to network only when necessary
                 this.fetch({
                     success: function (data) {
-                        console.log('Downloading data');
                         self.set({hasNetworkData: true});
                         var attr = data.attributes;
                         self.convertGraph(attr.nodes, attr.edges);

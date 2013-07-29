@@ -49,8 +49,6 @@ define([
         },
 
         render: function () {
-            console.log('Rendering sigma view:');
-
             // Clear all data
             SigmaRenderer.emptyGraph();
 
