@@ -220,32 +220,15 @@ define([
         },
 
         runEnrichment: function () {
-
-
-
             var params = this.validateEnrichParams();
 
-//            console.log("SUBMIUT: " + params.genes + ", " + params.pval + ", " + params['min-assigned']);
-
-//            $.post(
-//                'http://malbec.ucsd.edu:5000/enrich',
-//
-//                params,
-//                function (data) {
-//                    console(data);
-//                }
-//            );
-
-            $.ajax({
-                type: 'POST',
-                url: 'http://malbec.ucsd.edu:5000/enrich',
-                data: params,
-                success: function(data){
-
-                    console(data);
+            $.post(
+                '/enrich',
+                params,
+                function(data){
+                    console.log(data);
                 }
-            });
-
+            );
         },
 
         validateEnrichParams: function () {
