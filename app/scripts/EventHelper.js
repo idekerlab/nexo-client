@@ -22,7 +22,8 @@ define([
         NODES_SELECTED: 'nodesSelected',
         SEARCH_RESULT_SELECTED: 'searchResultSelected',
         NETWORK_SELECTED: 'networkSelected',
-        CLEAR: 'clear'
+        CLEAR: 'clear',
+        ENRICHED: 'enriched'
 
     }, Backbone.Events);
 

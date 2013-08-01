@@ -207,7 +207,7 @@ h4 {
   margin: 0;
 }
 
-#results {
+.results {
   max-height: 350px;
   margin-top: 4px;
   background-color: rgba(222, 222, 222, 0.1);
@@ -222,16 +222,16 @@ h4 {
   user-select: none;
 }
 
-#result-table tr {
+.res-table tr {
   cursor: pointer;
 }
 
-#result-table tr:hover {
+.res-table tr:hover {
   background-color: rgba(70, 130, 180, 0.8);
   color: #ffffff;
 }
 
-#result-table tr.selected {
+.res-table tr.selected {
   background-color: rgba(255, 94, 25, 0.8);
   font-weight: 700;
   color: #efefef;

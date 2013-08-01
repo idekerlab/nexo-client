@@ -47,9 +47,12 @@ define([
         rowClick: function (row) {
 
             // Clear selection
-            var tableObject = this.$('#result-table');
-            tableObject.find('tr').each(function () {
-                $(this).removeClass('selected');
+            var tableObjects = this.$('.res-table');
+
+            _.each(tableObjects, function (tableObject) {
+                $(tableObject).find('tr').each(function () {
+                    $(this).removeClass('selected');
+                });
             });
 
             $(row.currentTarget).addClass('selected');
@@ -149,7 +152,7 @@ define([
             $.getJSON(searchUrl, function (searchResult) {
                 if (searchResult !== undefined && searchResult.length !== 0) {
                     self.filter(searchResult, self);
-                    self.collection.trigger(EventHelper.NODES_SELECTED, self.collection.models);
+                    EventHelper.trigger(EventHelper.NODES_SELECTED, self.collection.models);
                 }
 
                 self.render();
@@ -225,8 +228,10 @@ define([
             $.post(
                 '/enrich',
                 params,
-                function(data){
-                    console.log(data);
+                function(result){
+                    console.log(result);
+                    EventHelper.trigger(EventHelper.ENRICHED, result);
+
                 }
             );
         },

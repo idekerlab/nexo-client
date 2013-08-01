@@ -18,9 +18,10 @@ define([
     'views/CyNetworkView',
     'views/SearchResultTableView',
     'views/NodeDetailsView',
-    'views/NetworkManagerView'
+    'views/NetworkManagerView',
+    'views/EnrichView'
 ], function(_, Backbone, EventHelper, ViewEventHelper, NexoAppModel,
-            CyNetworkView, SearchResultTableView, NodeDetailsView, NetworkManagerView) {
+            CyNetworkView, SearchResultTableView, NodeDetailsView, NetworkManagerView, EnrichView) {
 
     var CONFIG_FILE = '../app-config.json';
 
@@ -36,6 +37,7 @@ define([
             var searchView = new SearchResultTableView();
             var summaryView = new NodeDetailsView();
             var subNetworkView = new CyNetworkView();
+            var enrichView = new EnrichView();
 
             this.model.set({
                 searchView: searchView,
@@ -48,7 +50,7 @@ define([
 
                 var currentNetworkView = self.model.get('currentNetworkView');
 
-                ViewEventHelper.listenTo(searchView.collection, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
+                ViewEventHelper.listenTo(EventHelper, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
                 ViewEventHelper.listenTo(searchView.collection, EventHelper.SEARCH_RESULT_SELECTED, _.bind(currentNetworkView.zoomTo, currentNetworkView));
 
                 ViewEventHelper.listenTo(currentNetworkView, EventHelper.NODE_SELECTED, _.bind(summaryView.show, summaryView));
@@ -75,6 +77,8 @@ define([
                 // For interactions
                 EventHelper.listenTo(EventHelper, 'subnetworkRendered', _.bind(summaryView.interactionRenderer, summaryView));
 
+                EventHelper.listenTo(EventHelper, EventHelper.ENRICHED, _.bind(enrichView.processResult, enrichView));
+
             });
         },
 
@@ -91,7 +95,7 @@ define([
 
             ViewEventHelper.stopListening();
 
-            ViewEventHelper.listenTo(searchView.collection, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
+            ViewEventHelper.listenTo(EventHelper, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
             ViewEventHelper.listenTo(searchView.collection, EventHelper.SEARCH_RESULT_SELECTED, _.bind(currentNetworkView.zoomTo, currentNetworkView));
 
             ViewEventHelper.listenTo(currentNetworkView, EventHelper.NODE_SELECTED, _.bind(summaryView.show, summaryView));
