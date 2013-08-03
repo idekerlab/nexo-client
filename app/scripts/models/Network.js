@@ -71,6 +71,8 @@ define([
                 edges: []
             };
 
+            var nodeLabel2id = {};
+
             _.each(nodes, function (node) {
                 var nodeLabel = node.label;
                 node.fullLabel = nodeLabel;
@@ -83,6 +85,8 @@ define([
                     node.color = 'rgba(33,30,45,0.4)';
                 }
                 graph.nodes.push(node);
+
+                nodeLabel2id[node.label] = node.id;
             });
 
 
@@ -102,6 +106,8 @@ define([
             });
 
             this.set({graph: graph});
+            this.set('nodeLabel2id', nodeLabel2id);
+
             this.unset('nodes');
             this.unset('edges');
         }

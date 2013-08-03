@@ -52,6 +52,7 @@ define([
 
                 ViewEventHelper.listenTo(EventHelper, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
                 ViewEventHelper.listenTo(searchView.collection, EventHelper.SEARCH_RESULT_SELECTED, _.bind(currentNetworkView.zoomTo, currentNetworkView));
+                ViewEventHelper.listenTo(EventHelper, EventHelper.SUBNETWORK_NODE_SELECTED, _.bind(currentNetworkView.zoomTo, currentNetworkView));
 
                 ViewEventHelper.listenTo(currentNetworkView, EventHelper.NODE_SELECTED, _.bind(summaryView.show, summaryView));
                 ViewEventHelper.listenTo(currentNetworkView, EventHelper.NODE_SELECTED, _.bind(summaryView.model.getDetails, summaryView.model));
@@ -59,9 +60,11 @@ define([
                 // Update subnetwork view when a term is selected.
                 ViewEventHelper.listenTo(currentNetworkView, EventHelper.NODE_SELECTED, _.bind(subNetworkView.update, subNetworkView));
 
-                ViewEventHelper.listenTo(searchView, EventHelper.CLEAR, _.bind(currentNetworkView.refresh, currentNetworkView));
+                //ViewEventHelper.listenTo(searchView, EventHelper.CLEAR, _.bind(currentNetworkView.refresh, currentNetworkView));
 
-                EventHelper.listenTo(searchView, EventHelper.CLEAR, _.bind(summaryView.hide, summaryView));
+                //EventHelper.listenTo(searchView, EventHelper.CLEAR, _.bind(summaryView.hide, summaryView));
+
+                EventHelper.listenTo(EventHelper, EventHelper.CLEAR, _.bind(enrichView.clear, enrichView));
 
                 // Network collection manager
                 var networkCollection = self.model.get('networkManager');
@@ -78,6 +81,7 @@ define([
                 EventHelper.listenTo(EventHelper, 'subnetworkRendered', _.bind(summaryView.interactionRenderer, summaryView));
 
                 EventHelper.listenTo(EventHelper, EventHelper.ENRICHED, _.bind(enrichView.processResult, enrichView));
+
 
             });
         },
@@ -97,13 +101,14 @@ define([
 
             ViewEventHelper.listenTo(EventHelper, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
             ViewEventHelper.listenTo(searchView.collection, EventHelper.SEARCH_RESULT_SELECTED, _.bind(currentNetworkView.zoomTo, currentNetworkView));
+            ViewEventHelper.listenTo(EventHelper, EventHelper.SUBNETWORK_NODE_SELECTED, _.bind(currentNetworkView.zoomTo, currentNetworkView));
 
             ViewEventHelper.listenTo(currentNetworkView, EventHelper.NODE_SELECTED, _.bind(summaryView.show, summaryView));
             ViewEventHelper.listenTo(currentNetworkView, EventHelper.NODE_SELECTED, _.bind(summaryView.model.getDetails, summaryView.model));
 
             // Update subnetwork view when a term is selected.
             ViewEventHelper.listenTo(currentNetworkView, EventHelper.NODE_SELECTED, _.bind(subNetworkView.update, subNetworkView));
-            ViewEventHelper.listenTo(searchView, EventHelper.CLEAR, _.bind(currentNetworkView.refresh, currentNetworkView));
+            //ViewEventHelper.listenTo(searchView, EventHelper.CLEAR, _.bind(currentNetworkView.refresh, currentNetworkView));
         }
 
     });

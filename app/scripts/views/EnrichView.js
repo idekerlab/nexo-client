@@ -47,8 +47,6 @@ define([
 
         render: function() {
 
-            console.log('----------> rendering enriched');
-
             var enrichTable = this.$('#enrich-table');
             enrichTable.empty();
 
@@ -72,6 +70,14 @@ define([
             enrichTable.show(600);
 
             this.$el.animate({width: '+=150px'}, 'slow', 'swing');
+        },
+
+        clear: function() {
+            console.log('---------->Cleared:');
+            var enrichTable = this.$('#enrich-table');
+            enrichTable.hide();
+            enrichTable.empty();
+
         }
 
     });

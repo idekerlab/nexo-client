@@ -54,7 +54,7 @@ define([
 
             // Load data from model
             var graph = this.model.get('graph');
-            if(graph === undefined) {
+            if (graph === undefined) {
                 return;
             }
 
@@ -84,27 +84,33 @@ define([
         selectNodes: function (selectedNodes) {
             console.log(selectedNodes);
 
-            if (selectedNodes === undefined || selectedNodes instanceof Array === false) {
+            if (selectedNodes === undefined) {
                 // Invalid parameter.
-                return;
+            } else if (selectedNodes instanceof Array === false) {
+
+                // Single node selection
+                var id = this.model.get('nodeLabel2id')[selectedNodes];
+                this.highlight([id], true);
+            } else {
+                var targetNodes = [];
+                _.each(selectedNodes, function (node) {
+                    var id = node.get('name');
+                    var sigmaNode = SigmaRenderer._core.graph.nodesIndex[id];
+                    if (sigmaNode !== undefined) {
+                        targetNodes[sigmaNode.id] = true;
+                    }
+                });
+
+                this.highlight(targetNodes, true);
             }
-
-            var targetNodes = [];
-            _.each(selectedNodes, function (node) {
-                var id = node.get('name');
-                var sigmaNode = SigmaRenderer._core.graph.nodesIndex[id];
-                if (sigmaNode !== undefined) {
-                    targetNodes[sigmaNode.id] = true;
-                }
-            });
-
-            this.highlight(targetNodes, true);
         },
 
         zoomTo: function (id) {
             // Do nothing if ID is invalid.
-            if(id === undefined) {
+            if (id === undefined) {
                 return;
+            } else if(this.model.get('nodeLabel2id')[id] !== undefined) {
+                id = this.model.get('nodeLabel2id')[id];
             }
 
             var lastNode = this.model.get('lastSelected');

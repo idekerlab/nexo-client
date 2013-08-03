@@ -201,9 +201,10 @@ define([
                 this.$el.animate({width: '-=150px'}, 'slow', 'swing');
                 this.isDisplay = false;
             }
+
             resultTableElement.slideUp(500).empty();
             $('#query').val('');
-            this.trigger(EventHelper.CLEAR);
+            EventHelper.trigger(EventHelper.CLEAR);
         },
 
         helpButtonPressed: function () {
@@ -241,17 +242,26 @@ define([
 
             var genes = this.$('#gene-list').val();
             var pval = this.$('#pval').val();
-//            var minGenes = this.$('#num-genes').val();
+            var minGenes = this.$('#num-genes').val();
 
-            if (pval === undefined) {
+            if (pval === undefined || pval === '' || pval === null) {
                 pval = 0.01;
             } else {
                 pval = parseFloat(pval);
             }
 
+            if (minGenes === undefined || minGenes === '' || minGenes === null) {
+                minGenes = 2;
+            } else {
+                minGenes = parseInt(minGenes, 10);
+            }
+
+            console.log('CUTOFF = ' + pval);
+            console.log('MIN = ' + minGenes);
+
             params.genes = genes;
             params.alpha = pval;
-            params['min-assigned'] = 2;
+            params['min-assigned'] = minGenes;
 
             return params;
         }

@@ -39,9 +39,11 @@ define([
         },
 
         networkSelected: function (e) {
-            var currentNetwork = e[0].get('name');
+            var network = e[0];
+            var currentNetwork = network.get('name');
             if(this.model !== undefined && currentNetwork !== undefined) {
-                this.model.set('currentNetwork', currentNetwork);
+                this.model.set('currentNetworkName', currentNetwork);
+                this.model.set('currentNetwork', network);
             }
             console.log('**********************************Network Selected: ' + currentNetwork);
         },
@@ -51,7 +53,7 @@ define([
 
             var currentNetwork = '';
             if (this.model !== undefined) {
-                currentNetwork = this.model.get('currentNetwork');
+                currentNetwork = this.model.get('currentNetworkName');
             } else {
                 currentNetwork = 'NeXO';
             }
@@ -63,7 +65,7 @@ define([
 
             if (this.model === undefined || this.model === null) {
                 this.model = new CyNetwork({namespace: 'nexo', termId: nodeId});
-                this.model.set('currentNetwork', 'NeXO');
+                this.model.set('currentNetworkName', 'NeXO');
             } else {
                 this.model.set('termId', nodeId);
                 this.model.updateURL();
@@ -101,11 +103,22 @@ define([
                         })()
                         ), function () {
                             console.log('Layout finished.');
+                            self.setNodeSelectedListener();
+
                             $('#fadingBarsG').remove();
 //                            VIEW_MANAGER.setSubnetwork(cy.elements);
 
                         });
                 }
+            });
+        },
+
+        setNodeSelectedListener: function() {
+            var cy = this.model.get('cy');
+            console.log('CY is ***************** ' + cy);
+            cy.$('node').on('click', function(evt){
+                console.log( 'CLICK ' + evt.cyTarget.id() );
+                EventHelper.trigger(EventHelper.SUBNETWORK_NODE_SELECTED, evt.cyTarget.id());
             });
         },
 
