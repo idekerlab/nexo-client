@@ -9,14 +9,15 @@
 /*global define*/
 'use strict';
 
-
 define([
+
     'underscore',
     'backbone',
     'EventHelper',
     'models/Network',
     'collections/Networks',
     'views/NetworkView'
+
 ], function (_, Backbone, EventHelper, Network, Networks, NetworkView) {
 
     var DEFAULT_NETWORK = 'NeXO';

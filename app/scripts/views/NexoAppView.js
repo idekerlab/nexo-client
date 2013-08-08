@@ -10,6 +10,7 @@
 'use strict';
 
 define([
+
     'underscore',
     'backbone',
     'EventHelper',
@@ -20,6 +21,7 @@ define([
     'views/NodeDetailsView',
     'views/NetworkManagerView',
     'views/EnrichView'
+
 ], function(_, Backbone, EventHelper, ViewEventHelper, NexoAppModel,
             CyNetworkView, SearchResultTableView, NodeDetailsView, NetworkManagerView, EnrichView) {
 
@@ -49,6 +51,7 @@ define([
             this.listenToOnce(this.model, EventHelper.INITIALIZED, function () {
 
                 var currentNetworkView = self.model.get('currentNetworkView');
+                searchView.currentNetwork = currentNetworkView.model;
 
                 ViewEventHelper.listenTo(EventHelper, EventHelper.NODES_SELECTED, _.bind(currentNetworkView.selectNodes, currentNetworkView));
                 ViewEventHelper.listenTo(searchView.collection, EventHelper.SEARCH_RESULT_SELECTED, _.bind(currentNetworkView.zoomTo, currentNetworkView));
@@ -81,8 +84,6 @@ define([
                 EventHelper.listenTo(EventHelper, 'subnetworkRendered', _.bind(summaryView.interactionRenderer, summaryView));
 
                 EventHelper.listenTo(EventHelper, EventHelper.ENRICHED, _.bind(enrichView.processResult, enrichView));
-
-
             });
         },
 

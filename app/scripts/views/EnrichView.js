@@ -27,8 +27,6 @@ define([
             var self = this;
 
             this.collection.reset();
-
-
             var results = result.results;
 
             _.each(results, function(enrichedTerm) {
@@ -50,7 +48,7 @@ define([
             var enrichTable = this.$('#enrich-table');
             enrichTable.empty();
 
-            enrichTable.append('<tr><th>Term ID</th><th>p-value</th><th>Genes</th></tr>');
+            enrichTable.append('<tr><th>ID</th><th>Name</th><th>Genes</th><th>p-value</th></tr>');
             this.collection.each(function (result) {
 
                 var termID = 'NEXO:' + result.id;
@@ -59,6 +57,8 @@ define([
                 var resultView = new EnrichTableRowView({
                     model: result
                 });
+
+                resultView.model.set('name', '');
 
                 var rendered = resultView.render();
                 enrichTable.append(rendered.$el.html());
@@ -73,11 +73,9 @@ define([
         },
 
         clear: function() {
-            console.log('---------->Cleared:');
             var enrichTable = this.$('#enrich-table');
             enrichTable.hide();
             enrichTable.empty();
-
         }
 
     });

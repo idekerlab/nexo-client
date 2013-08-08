@@ -23,9 +23,14 @@ define([
 
             var name = this.model.get('name');
             var label = this.model.get('label');
+
             var hits = {};
             _.each(this.model.keys(), function (key) {
                 var value = self.model.get(key);
+
+                console.log(query);
+                console.log(name + ', Key: ' + key + ' = ' + value);
+
                 if (value !== undefined && value !== '' && key !== 'label') {
                     _.each(query, function (qVal) {
                         var original = value.toString();

@@ -54,7 +54,6 @@ define([
 
             // Hide popover
             this.$el.find('#trees').popover('hide');
-
         }
     });
 

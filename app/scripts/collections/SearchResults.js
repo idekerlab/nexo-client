@@ -16,7 +16,13 @@ define([
     var SearchResults = Backbone.Collection.extend({
 
         comparator: function (model) {
-            return model.get('id');
+            var label = model.get('label');
+
+            if(label !== undefined && label !== '' ) {
+                return label;
+            } else {
+                return undefined;
+            }
         }
     });
 

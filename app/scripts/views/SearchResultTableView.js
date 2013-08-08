@@ -29,6 +29,8 @@ define([
         isDisplay: false,
         isAdvanced: false,
 
+        currentNetwork: {},
+
         nameSpace: 'NEXO',
 
         events: {
@@ -71,34 +73,35 @@ define([
 
 
         currentNetworkChanged: function (e) {
-            var networkName = e.get('currentNetwork').get('name');
+            var currentNetwork = e.get('currentNetwork');
+
+            var networkName = currentNetwork.get('name');
             var parts = networkName.split(' ');
             var nameSpace = parts[0].toUpperCase();
-            console.log('Current Namespace = ' + nameSpace);
             this.nameSpace = nameSpace;
-
+            this.currentNetwork = currentNetwork;
         },
 
 
-        render: function () {
+        render: function (query) {
             var resultTableElement = $('#result-table');
             resultTableElement.empty();
 
-            console.log('Rendering table: ' + this.collection.size());
             if (this.collection.size() === 0) {
                 this.$('#result-table').append(
                     '<tr><td>' + 'No Match!' + '</td></tr>').slideDown(1000, 'swing');
                 return;
             }
 
-            var queryObject = this.collection.at(0);
-
             // This should not happen!
-            if (queryObject === undefined) {
+            if (query === undefined) {
                 return;
             }
 
-            var queryArray = queryObject.get('queryArray');
+            var queryArray = query.queryArray;
+
+            console.log('Rendering table: ' + this.collection.size());
+            console.log(queryArray);
 
             // Check existing nodes
             var nodeMap = {};
@@ -109,11 +112,32 @@ define([
 
 
             this.$('#result-table').append('<tr><th>ID</th><th>Term Name</th><th>Matches</th></tr>');
+
+            var labelHits = [];
+
             this.collection.each(function (result) {
-                var name = result.get('name');
-                if (result !== queryObject && nodeMap[name]) {
-                    this.renderResult(result, queryArray);
+                var id = result.get('name');
+                if (nodeMap[id] === true) {
+                    var label = result.get('label');
+                    _.each(queryArray, function(query) {
+                        if(label.indexOf(query) !== -1) {
+                            labelHits.push(result);
+                        }
+                    });
                 }
+            });
+
+            var sorted = _.union(labelHits, []);
+
+            this.collection.each(function (result) {
+                var id = result.get('name');
+                if (nodeMap[id] === true && _.contains(labelHits, result) === false) {
+                    sorted.push(result);
+                }
+            });
+
+            _.each(sorted, function (result) {
+                this.renderResult(result, queryArray);
             }, this);
 
             this.$('#result-table').show(600);
@@ -138,6 +162,7 @@ define([
         search: function (query, searchByGenes) {
             var self = this;
 
+            // Remove all results.
             this.collection.reset();
 
             var searchUrl = '';
@@ -147,27 +172,39 @@ define([
                 searchUrl = '/search/' + this.nameSpace + '/' + query;
             }
 
-            console.log('NS = ' + this.nameSpace);
 
             $.getJSON(searchUrl, function (searchResult) {
+                var query;
+
                 if (searchResult !== undefined && searchResult.length !== 0) {
-                    self.filter(searchResult, self);
+
+                    console.log(searchResult);
+
+                    query = self.filter(searchResult);
                     EventHelper.trigger(EventHelper.NODES_SELECTED, self.collection.models);
                 }
-
-                self.render();
+                self.render(query);
             });
         },
 
-        filter: function (results, self) {
+        filter: function (searchResults) {
+            var self = this;
+
             var keySet = [];
-            _.each(results, function (result) {
+            _.each(searchResults, function (result) {
                 var name = result.name;
+
+                console.log('## ROW origin = ' + name);
+                console.log(keySet);
+
                 if (!_.contains(keySet, name)) {
                     self.collection.add(result);
                 }
                 keySet.push(name);
             });
+            console.log(this.collection.models);
+
+            return searchResults[0];
         },
 
         searchDatabase: function (event) {
@@ -225,6 +262,10 @@ define([
 
         runEnrichment: function () {
             var params = this.validateEnrichParams();
+
+            console.log('CUR NET***************** ' + this.currentNetwork);
+            var labelMap = this.currentNetwork.get('nodeLabel2id');
+            console.log(labelMap);
 
             $.post(
                 '/enrich',

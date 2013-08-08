@@ -24,9 +24,14 @@ define([
             var pVal = this.model.get('p-value').toExponential(3);
             var genes = this.model.get('genes');
 
-            var newRow = '<tr><td>' + termId + '</td><td>' + pVal + '</td><td>';
 
-            newRow += genes + '</td></tr>';
+            var geneString = '';
+            _.each(genes, function (gene) {
+                    geneString += gene + ' ';
+                }
+            );
+
+            var newRow = '<tr><td>' + termId + '</td><td>' + geneString + '</td><td>' + pVal + '</td></tr>';
 
             this.$el.append(newRow);
 
