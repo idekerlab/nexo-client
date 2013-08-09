@@ -82,6 +82,7 @@ define([
 
 
         selectNodes: function (selectedNodes) {
+            console.log('----------- Nodes selected --------------');
             console.log(selectedNodes);
 
             if (selectedNodes === undefined) {
@@ -89,8 +90,9 @@ define([
             } else if (selectedNodes instanceof Array === false) {
 
                 // Single node selection
-                var id = this.model.get('nodeLabel2id')[selectedNodes];
-                this.highlight([id], true);
+                // FIXME
+//                var id = this.model.get('nodeLabel2id')[selectedNodes];
+                this.highlight([selectedNodes], true);
             } else {
                 var targetNodes = [];
                 _.each(selectedNodes, function (node) {
@@ -107,10 +109,8 @@ define([
 
         zoomTo: function (id) {
             // Do nothing if ID is invalid.
-            if (id === undefined) {
+            if (id === undefined || id === '' || id === null) {
                 return;
-            } else if(this.model.get('nodeLabel2id')[id] !== undefined) {
-                id = this.model.get('nodeLabel2id')[id];
             }
 
             var lastNode = this.model.get('lastSelected');

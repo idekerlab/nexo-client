@@ -34,9 +34,11 @@ define([
                 var termId = enrichedTerm.id;
                 var pVal = enrichedTerm['p-value'];
                 var genes = enrichedTerm.genes;
+                var name = enrichedTerm.label;
+
                 self.collection.add(enrichedTerm);
 
-                console.log(termId + ', ' + pVal + ', ' + genes);
+                console.log(termId + ', ' + pVal + ', ' + genes + ', ' + name);
             });
 
             this.collection.sort();
@@ -51,14 +53,9 @@ define([
             enrichTable.append('<tr><th>ID</th><th>Name</th><th>Genes</th><th>p-value</th></tr>');
             this.collection.each(function (result) {
 
-                var termID = 'NEXO:' + result.id;
-                result.set('name', termID);
-
                 var resultView = new EnrichTableRowView({
                     model: result
                 });
-
-                resultView.model.set('name', '');
 
                 var rendered = resultView.render();
                 enrichTable.append(rendered.$el.html());
@@ -68,8 +65,8 @@ define([
             EventHelper.trigger(EventHelper.NODES_SELECTED, this.collection.models);
 
             enrichTable.show(600);
+            this.$el.animate({width:'550px'});
 
-            this.$el.animate({width: '+=150px'}, 'slow', 'swing');
         },
 
         clear: function() {

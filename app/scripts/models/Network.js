@@ -71,7 +71,7 @@ define([
                 edges: []
             };
 
-            var nodeLabel2id = {};
+            var id2label = {};
 
             _.each(nodes, function (node) {
                 var nodeLabel = node.label;
@@ -86,7 +86,7 @@ define([
                 }
                 graph.nodes.push(node);
 
-                nodeLabel2id[node.label] = node.id;
+                id2label[node.id] = node.label;
             });
 
 
@@ -106,7 +106,7 @@ define([
             });
 
             this.set({graph: graph});
-            this.set('nodeLabel2id', nodeLabel2id);
+            this.set('nodeLabel2id', id2label);
 
             this.unset('nodes');
             this.unset('edges');

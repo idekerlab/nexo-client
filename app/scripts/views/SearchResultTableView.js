@@ -100,9 +100,6 @@ define([
 
             var queryArray = query.queryArray;
 
-            console.log('Rendering table: ' + this.collection.size());
-            console.log(queryArray);
-
             // Check existing nodes
             var nodeMap = {};
             SigmaRenderer
@@ -119,8 +116,8 @@ define([
                 var id = result.get('name');
                 if (nodeMap[id] === true) {
                     var label = result.get('label');
-                    _.each(queryArray, function(query) {
-                        if(label.indexOf(query) !== -1) {
+                    _.each(queryArray, function (query) {
+                        if (label.indexOf(query) !== -1) {
                             labelHits.push(result);
                         }
                     });
@@ -141,14 +138,11 @@ define([
             }, this);
 
             this.$('#result-table').show(600);
-
-            if (this.isDisplay === false) {
-                this.$el.animate({width: '+=150px'}, 'slow', 'swing');
-                this.isDisplay = true;
-            }
+            this.$el.animate({width: '500px'});
         },
 
         renderResult: function (result, query) {
+
 
             var resultView = new SearchResultView({
                 model: result
@@ -234,10 +228,7 @@ define([
         clearButtonPressed: function () {
             var resultTableElement = $('#result-table');
 
-            if (this.isDisplay) {
-                this.$el.animate({width: '-=150px'}, 'slow', 'swing');
-                this.isDisplay = false;
-            }
+            this.$el.animate({width: '350px'});
 
             resultTableElement.slideUp(500).empty();
             $('#query').val('');
@@ -263,15 +254,19 @@ define([
         runEnrichment: function () {
             var params = this.validateEnrichParams();
 
-            console.log('CUR NET***************** ' + this.currentNetwork);
-            var labelMap = this.currentNetwork.get('nodeLabel2id');
-            console.log(labelMap);
-
+            var self = this;
             $.post(
                 '/enrich',
                 params,
-                function(result){
-                    console.log(result);
+                function (result) {
+                    var labelMap = self.currentNetwork.get('nodeLabel2id');
+
+                    console.log(labelMap);
+
+                    _.each(result.results, function (res) {
+                        res.name = 'NEXO:' + res.id;
+                        res.label = labelMap[res.name];
+                    });
                     EventHelper.trigger(EventHelper.ENRICHED, result);
 
                 }

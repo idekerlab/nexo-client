@@ -20,9 +20,10 @@ define([
 
         render: function () {
 
-            var termId = 'NEXO:' + this.model.get('id');
+            var termId = this.model.get('name');
             var pVal = this.model.get('p-value').toExponential(3);
             var genes = this.model.get('genes');
+            var label = this.model.get('label');
 
 
             var geneString = '';
@@ -31,7 +32,8 @@ define([
                 }
             );
 
-            var newRow = '<tr><td>' + termId + '</td><td>' + geneString + '</td><td>' + pVal + '</td></tr>';
+            var newRow = '<tr><td>' + termId + '</td><td>' + label + '</td><td>' +
+                geneString + '</td><td>' + pVal + '</td></tr>';
 
             this.$el.append(newRow);
 
