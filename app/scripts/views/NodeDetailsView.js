@@ -74,12 +74,12 @@ define([
 
             this.$el.find('.float-ui').hide();
 
-            $('#result-tab a:last').tab('show');
-            $('#result-tab a[href="#details"]').tab('show');
+//            $('#result-tab a:last').tab('show');
+//            $('#result-tab a[href="#details"]').tab('show');
         },
 
         tabClicked: function(e) {
-            console.log('********* TAB');
+            console.log('********* TAB2');
             e.preventDefault();
             $(this).tab('show');
         },
