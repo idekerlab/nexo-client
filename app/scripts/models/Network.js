@@ -72,6 +72,7 @@ define([
             };
 
             var id2label = {};
+            var convertMap = {};
 
             _.each(nodes, function (node) {
                 var nodeLabel = node.label;
@@ -87,6 +88,7 @@ define([
                 graph.nodes.push(node);
 
                 id2label[node.id] = node.label;
+                convertMap[node.label] = node.id;
             });
 
 
@@ -107,6 +109,7 @@ define([
 
             this.set({graph: graph});
             this.set('nodeLabel2id', id2label);
+            this.set('convert', convertMap);
 
             this.unset('nodes');
             this.unset('edges');

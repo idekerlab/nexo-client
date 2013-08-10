@@ -47,30 +47,38 @@
 
     <div class="row-fluid">
         <div class="span1">By:</div>
-        <div class="span4">
+        <div class="span3">
             <label class="radio">
                 <input type="radio" name="optionsRadios" id="byKeyword" value="option1" checked>
                 Keywords
             </label>
         </div>
 
-        <div class="span4">
+        <div class="span3">
             <label class="radio">
                 <input type="radio" name="optionsRadios" id="byGenes" value="option2">
                 Genes
             </label>
         </div>
     </div>
+    <div class="row-fluid">
+        <div class="results">
+            <table id="result-table" class="table res-table"></table>
+        </div>
+    </div>
 
     <div id="enrich">
-        <legend>Term Enrichment</legend>
+        <h4>Term Enrichment</h4>
+
         <div class="row-fluid">
             <textarea id="gene-list" class="form-control span12" rows="3"
                       placeholder="Enter list of genes of your interest..."></textarea>
         </div>
         <div class="row-fluid">
-            <input id="pval" type="text" placeholder="P-value cutoff" class="flat span5">
-            <input id="num-genes" type="text" placeholder="# genes assigned" class="flat span5">
+            <input id="pval" type="text" placeholder="p-value cutoff" title="P-value cutoff" class="flat span4">
+            <input id="num-genes" type="text" placeholder="Min. # genes"
+                   title="Minimum number of genes assigned to a term" class="flat span4">
+            <button id="enrich-reset" class="btn btn flat mini-btn-mod" type="button">Reset</button>
             <button id="enrich-submit" class="btn btn flat mini-btn-mod" type="button">Submit</button>
         </div>
         <div class="results">
@@ -78,9 +86,6 @@
         </div>
     </div>
 
-    <div class="results">
-        <table id="result-table" class="table res-table"></table>
-    </div>
 </div>
 
 <!-- Navigation UI -->

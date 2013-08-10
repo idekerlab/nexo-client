@@ -88,11 +88,9 @@ define([
             if (selectedNodes === undefined) {
                 // Invalid parameter.
             } else if (selectedNodes instanceof Array === false) {
-
-                // Single node selection
-                // FIXME
-//                var id = this.model.get('nodeLabel2id')[selectedNodes];
-                this.highlight([selectedNodes], true);
+                // Single node selection - This is from cytoscape.js
+                var id = this.model.get('convert')[selectedNodes];
+                this.highlight([id], true);
             } else {
                 var targetNodes = [];
                 _.each(selectedNodes, function (node) {
@@ -111,6 +109,8 @@ define([
             // Do nothing if ID is invalid.
             if (id === undefined || id === '' || id === null) {
                 return;
+            } else if(this.model.get('convert')[id] !== undefined) {
+                id = this.model.get('convert')[id];
             }
 
             var lastNode = this.model.get('lastSelected');

@@ -28,14 +28,14 @@ define([
             _.each(this.model.keys(), function (key) {
                 var value = self.model.get(key);
 
-                console.log(query);
-                console.log(name + ', Key: ' + key + ' = ' + value);
-
                 if (value !== undefined && value !== '' && key !== 'label') {
                     _.each(query, function (qVal) {
                         var original = value.toString();
                         var newValue = original.toLocaleLowerCase();
                         var location = newValue.indexOf(qVal.toLowerCase());
+
+                        var regex = new RegExp(qVal, 'i');
+
                         if (location !== -1) {
                             var len = original.length;
                             var start = 0;
@@ -60,13 +60,21 @@ define([
                                 finalText += '...';
                             }
 
+                            // Add tag
+                            finalText = finalText.replace(regex, '<strong>' + qVal + '</strong>');
                             hits[key] = finalText;
                         }
                     });
                 }
             });
 
-            var newRow = '<tr><td>' + name + '</td><td>' + label + '</td><td style="width: 190px"><ul>';
+            // Highlight query term in name.
+            _.each(query, function (qVal) {
+                var regex = new RegExp(qVal, 'i');
+                label= label.replace(regex, '<strong>' + qVal + '</strong>');
+            });
+
+            var newRow = '<tr><td>' + name + '</td><td>' + label + '</td><td style="width: 200px"><ul>';
             _.each(_.keys(hits), function (key) {
                 newRow += '<li>' + hits[key] + '</li>';
             });

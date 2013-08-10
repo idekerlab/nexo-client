@@ -56,7 +56,6 @@ define([
                     tree = new Network({name: network.name, config: network, loadAtInit: true});
                     nexoTree = tree;
                 } else {
-
                     tree = new Network({name: network.name, config: network, loadAtInit: false});
                 }
                 this.get('networkManager').add(tree);
@@ -64,7 +63,6 @@ define([
 
             // Initialize NeXO view only.
             $('#network-title').html(nexoTree.get('name'));
-
 
             console.log(nexoTree);
             var nexoView = new NetworkView({model: nexoTree});

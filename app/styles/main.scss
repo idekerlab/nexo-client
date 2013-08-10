@@ -83,8 +83,8 @@ h4 {
   margin-left: 5px;
   width: 350px;
   padding-top: 0.2em;
-  padding-right: 0.7em;
-  padding-left: 0.7em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
   padding-bottom: 0;
   background-color: rgba(255, 255, 255, 0.6);
   z-index: 20;
@@ -92,6 +92,13 @@ h4 {
   top: 0;
   border: 1px solid #a6a6a6;
 
+}
+
+#enrich {
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 #network-title {
@@ -226,6 +233,10 @@ h4 {
   cursor: pointer;
 }
 
+.res-table tr strong {
+  color: orange;
+}
+
 .res-table tr:hover {
   background-color: rgba(70, 130, 180, 0.8);
   color: #ffffff;
@@ -233,7 +244,10 @@ h4 {
 
 .res-table tr.selected {
   background-color: rgba(255, 94, 25, 0.8);
-  font-weight: 700;
+  color: #333333;
+}
+
+.res-table tr.selected strong {
   color: #efefef;
 }
 
@@ -262,7 +276,6 @@ h4 {
 }
 
 #commands .popover-content li {
-
   padding-left: 3px;
   padding-right: 3px;
   cursor: pointer;
@@ -304,6 +317,7 @@ h4 {
   width: 500px;
   margin-bottom: 10px;
 }
+
 
 
 /*
@@ -370,6 +384,8 @@ h4 {
 .section {
   margin-top: 60px;
 }
+
+
 
 footer {
   margin-top: 20px;

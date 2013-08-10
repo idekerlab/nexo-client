@@ -9,7 +9,6 @@
 /*global define*/
 'use strict';
 
-
 define([
 
     'underscore',
@@ -72,6 +71,15 @@ define([
             this.listenTo(this.model, 'change', this.render);
 
             this.$el.find('.float-ui').hide();
+
+            // For tab switching
+            this.$('#result-tab a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+
+            this.$('#result-tab a:last').tab('show');
+            this.$('#result-tab a[href="#details"]').tab('show');
         },
 
 

@@ -42,6 +42,7 @@ define([
 
             'click #advanced-button': 'advancedButtonPressed',
             'click #enrich-submit': 'runEnrichment',
+            'click #enrich-reset': 'resetButtonPressed',
 
             'click tr': 'rowClick'
         },
@@ -117,7 +118,8 @@ define([
                 if (nodeMap[id] === true) {
                     var label = result.get('label');
                     _.each(queryArray, function (query) {
-                        if (label.indexOf(query) !== -1) {
+                        var regex = new RegExp(query, 'i');
+                        if (label.match(regex)) {
                             labelHits.push(result);
                         }
                     });
@@ -171,9 +173,6 @@ define([
                 var query;
 
                 if (searchResult !== undefined && searchResult.length !== 0) {
-
-                    console.log(searchResult);
-
                     query = self.filter(searchResult);
                     EventHelper.trigger(EventHelper.NODES_SELECTED, self.collection.models);
                 }
@@ -188,15 +187,11 @@ define([
             _.each(searchResults, function (result) {
                 var name = result.name;
 
-                console.log('## ROW origin = ' + name);
-                console.log(keySet);
-
                 if (!_.contains(keySet, name)) {
                     self.collection.add(result);
                 }
                 keySet.push(name);
             });
-            console.log(this.collection.models);
 
             return searchResults[0];
         },
@@ -251,6 +246,11 @@ define([
             }
         },
 
+        resetButtonPressed: function () {
+            $('#gene-list').val('');
+            $('#enrich-table').slideUp(500).empty();
+        },
+
         runEnrichment: function () {
             var params = this.validateEnrichParams();
 
@@ -260,8 +260,6 @@ define([
                 params,
                 function (result) {
                     var labelMap = self.currentNetwork.get('nodeLabel2id');
-
-                    console.log(labelMap);
 
                     _.each(result.results, function (res) {
                         res.name = 'NEXO:' + res.id;
@@ -298,6 +296,10 @@ define([
             params.genes = genes;
             params.alpha = pval;
             params['min-assigned'] = minGenes;
+
+            // Set values to the text boxes
+            $('#pval').val(pval);
+            $('#num-genes').val(minGenes);
 
             return params;
         }
