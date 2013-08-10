@@ -61,7 +61,9 @@ define([
             'click #close-button': 'hide',
             'hover #term-summary': 'showHover',
             'hover #genes': 'showHover',
-            'hover #interactions': 'showHover'
+            'hover #interactions': 'showHover',
+
+            'click #result-tab a': 'tabClicked'
         },
 
         isDisplayed: false,
@@ -72,14 +74,14 @@ define([
 
             this.$el.find('.float-ui').hide();
 
-            // For tab switching
-            this.$('#result-tab a').click(function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
+            $('#result-tab a:last').tab('show');
+            $('#result-tab a[href="#details"]').tab('show');
+        },
 
-            this.$('#result-tab a:last').tab('show');
-            this.$('#result-tab a[href="#details"]').tab('show');
+        tabClicked: function(e) {
+            console.log('********* TAB');
+            e.preventDefault();
+            $(this).tab('show');
         },
 
 
