@@ -79,7 +79,6 @@ define([
         },
 
         tabClicked: function(e) {
-            console.log('********* TAB2');
             e.preventDefault();
             $(this).tab('show');
         },
@@ -219,8 +218,9 @@ define([
                 alignedCategory = CATEGORY_MAP[bestAlignedGoCategory];
                 category = bestAlignedGoCategory.toUpperCase();
             }
-            var alignedGo = this.model.get('Best Alignment GO Term ID');
-            var alignedGoTermName = this.model.get('Term');
+
+//            var alignedGo = this.model.get('Best Alignment GO Term ID');
+            var alignedGoTermName = this.model.get(category + ' Annotation');
             var robustness = this.model.get('Robustness');
             var interactionDensity = this.model.get('Interaction Density');
             var bootstrap = this.model.get('Bootstrap');
@@ -231,9 +231,9 @@ define([
 
             if (id.indexOf('S') === -1) {
                 summary += '<h4>Gene Ontology Alignment</h4><table class="table table-striped">';
-                summary += '<tr><td>Best Aligned GO Term ID</td><td>' + alignedGo + '</td></tr>';
-                summary += '<tr><td>Best Aligned GO Term Name</td><td>' + alignedGoTermName + '</td></tr>';
-                summary += '<tr><td>Best Aligned GO Gategory</td><td>';
+//                summary += '<tr><td>Best Aligned GO Term ID</td><td>' + alignedGo + '</td></tr>';
+                summary += '<tr><td>Best Aligned GO Term</td><td>' + alignedGoTermName + '</td></tr>';
+                summary += '<tr><td>Best Aligned GO Category</td><td>';
                 summary += alignedCategory + '</td></tr></table></div><div id="go-chart"></div>';
                 summary = this.processEntry(summary);
 
