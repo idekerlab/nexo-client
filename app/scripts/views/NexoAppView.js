@@ -25,7 +25,7 @@ define([
 ], function(_, Backbone, EventHelper, ViewEventHelper, NexoAppModel,
             CyNetworkView, SearchResultTableView, NodeDetailsView, NetworkManagerView, EnrichView) {
 
-    var CONFIG_FILE = '../app-config.json';
+    var CONFIG_FILE = '/dist/app-config.json';
 
     var NexoAppView = Backbone.View.extend({
 

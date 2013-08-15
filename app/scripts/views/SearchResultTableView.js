@@ -260,9 +260,14 @@ define([
                 params,
                 function (result) {
                     var labelMap = self.currentNetwork.get('nodeLabel2id');
+                    var ontology = self.currentNetwork.get('config').ontologyType;
 
                     _.each(result.results, function (res) {
-                        res.name = 'NEXO:' + res.id;
+                        if(ontology === 'NEXO') {
+                            res.name = 'NEXO:' + res.id;
+                        } else {
+                            res.name = res.id;
+                        }
                         res.label = labelMap[res.name];
                     });
                     EventHelper.trigger(EventHelper.ENRICHED, result);
@@ -277,6 +282,7 @@ define([
             var genes = this.$('#gene-list').val();
             var pval = this.$('#pval').val();
             var minGenes = this.$('#num-genes').val();
+            var ontology = this.currentNetwork.get('config').ontologyType;
 
             if (pval === undefined || pval === '' || pval === null) {
                 pval = 0.01;
@@ -292,9 +298,13 @@ define([
 
             console.log('CUTOFF = ' + pval);
             console.log('MIN = ' + minGenes);
+            console.log(this.currentNetwork);
+            console.log(this.currentNetwork.get('config'));
+            console.log('ONTOLOGY2 = ' + ontology);
 
             params.genes = genes;
             params.alpha = pval;
+            params.type = ontology;
             params['min-assigned'] = minGenes;
 
             // Set values to the text boxes

@@ -18,8 +18,8 @@ define([
 ], function (jquery, _, Backbone, EventHelper, SigmaRenderer) {
 
     // Constants
-    var DIM_COLOR = 'rgba(220,220,220,0.7)';
-    var SELECTED_NODE_COLOR = 'rgba(70,130,180,0.9)';
+    var DIM_COLOR = 'rgba(150,150,150,0.7)';
+    var SELECTED_NODE_COLOR = 'rgb(70,130,180)';
     var QUERY_NODE_COLOR = 'rgb(255,94,25)';
 
     var NetworkView = Backbone.View.extend({

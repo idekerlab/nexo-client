@@ -4,6 +4,7 @@
     "networks": [
         {
             "name": "NeXO",
+            "ontologyType": "NEXO",
             "networkData": "nexo4.json",
 
             "sigma": {
@@ -36,7 +37,7 @@
                 },
                 "nexoProperties": {
                     "labelLength": 20,
-                    "unselectedColor": "rgba(200,200,200,0.9)",
+                    "unselectedColor": "rgba(100,100,100,0.9)",
                     "selectedColor": "rgba(70,130,180,0.9)",
                     "queryNodeColor": "rgb(255,94,25)"
                 }
@@ -45,6 +46,7 @@
 
         {
             "name": "GO Biological Process",
+            "ontologyType": "BP",
             "networkData": "new-bp-info.json",
 
             "sigma": {
@@ -79,6 +81,7 @@
 
         {
             "name": "GO Cellular Component",
+            "ontologyType": "CC",
             "networkData": "new-cc-info.json",
 
             "sigma": {
@@ -112,6 +115,7 @@
         },
         {
             "name": "GO Molecular Function",
+            "ontologyType": "MF",
             "networkData": "new-mf-info.json",
 
             "sigma": {

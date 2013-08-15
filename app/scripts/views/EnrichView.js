@@ -17,35 +17,40 @@ define([
 
         el: ID_ENRICHED,
 
-        initialize: function() {
+        initialize: function () {
             this.collection = new EnrichedTerms();
             var tableObject = this.$('#enrich-table');
             tableObject.hide();
         },
 
-        processResult: function(result) {
+        processResult: function (result) {
             var self = this;
 
             this.collection.reset();
             var results = result.results;
 
-            _.each(results, function(enrichedTerm) {
+            _.each(results, function (enrichedTerm) {
 
-                var termId = enrichedTerm.id;
-                var pVal = enrichedTerm['p-value'];
-                var genes = enrichedTerm.genes;
-                var name = enrichedTerm.label;
+                // If label does not exist, it does not exist on the current view.
+                if (enrichedTerm.label !== undefined) {
 
-                self.collection.add(enrichedTerm);
+                    var termId = enrichedTerm.id;
+                    var pVal = enrichedTerm['p-value'];
+                    var genes = enrichedTerm.genes;
+                    var name = enrichedTerm.label;
 
-                console.log(termId + ', ' + pVal + ', ' + genes + ', ' + name);
+
+                    self.collection.add(enrichedTerm);
+
+                    console.log(termId + ', ' + pVal + ', ' + genes + ', ' + name);
+                }
             });
 
             this.collection.sort();
             this.render();
         },
 
-        render: function() {
+        render: function () {
 
             var enrichTable = this.$('#enrich-table');
             enrichTable.empty();
@@ -65,11 +70,11 @@ define([
             EventHelper.trigger(EventHelper.NODES_SELECTED, this.collection.models);
 
             enrichTable.show(600);
-            this.$el.animate({width:'550px'});
+            this.$el.animate({width: '550px'});
 
         },
 
-        clear: function() {
+        clear: function () {
             var enrichTable = this.$('#enrich-table');
             enrichTable.hide();
             enrichTable.empty();
