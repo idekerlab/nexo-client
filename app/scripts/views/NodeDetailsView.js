@@ -20,6 +20,8 @@ define([
 ], function (_, Backbone, NodeDetails, SigmaRenderer) {
 
     var ID_SUMMARY_PANEL = '#summary-panel';
+    //var interactionTab = '<li id="interactions-tab"><a href="#interactions" data-toggle="tab">Interactions</a></li>';
+    //var interactionContents = '<div class="tab-pane" id="interactions"></div>';
 
     var QUICK_GO_API = 'http://www.ebi.ac.uk/QuickGO/GTerm?id=';
     var SGD_API = 'http://www.yeastgenome.org/cgi-bin/locus.fpl?dbid=';
@@ -67,6 +69,8 @@ define([
         },
 
         isDisplayed: false,
+
+        currentOntology: 'NEXO',
 
         initialize: function () {
             this.model = new NodeDetails();
@@ -155,7 +159,7 @@ define([
 
         renderGenes: function () {
             var genes = this.model.get('Assigned Gene Ids');
-            if (genes === undefined || genes.length > 100) {
+            if (genes === undefined) {
                 // Too many genes.
                 return;
             }
@@ -528,6 +532,18 @@ define([
             }
 
             return allValues;
+        },
+
+
+        networkSelected: function (e) {
+            if(e === undefined) {
+                return;
+            }
+
+            var network = e[0];
+            this.currentOntology = network.get('config').ontologyType;
+            console.log('1. SUMMARY: view switched: ' + this.currentOntology);
+
         },
 
         show: function () {

@@ -1,4 +1,4 @@
 #!/bin/sh
-rm -rf ~/nexo-webapp/nexo/public/dist
-cp -r dist ~/nexo-webapp/nexo/public/
+rm -rf ../git/nexo/public/dist
+cp -r dist ../git/nexo/public/
 

@@ -34,20 +34,12 @@ define([
 
         el: '#cy-network',
 
-        render: function () {
-            $(CYTOSCAPE_TAG).cytoscape(this.initSubnetworkView());
-        },
+        currentOntology: 'NEXO',
 
-        networkSelected: function (e) {
-            var network = e[0];
-            var currentNetwork = network.get('name');
-            if(this.model !== undefined && currentNetwork !== undefined) {
-                this.model.set('currentNetworkName', currentNetwork);
-                this.model.set('currentNetwork', network);
-            }
-            console.log('**********************************Network Selected: ' + currentNetwork);
-        },
-
+        /**
+         * Event listener.  If a term is selected, it will update the
+         * @param nodeId
+         */
         update: function (nodeId) {
             $(CYTOSCAPE_TAG).empty();
 
@@ -58,7 +50,9 @@ define([
                 currentNetwork = 'NeXO';
             }
 
-            if (currentNetwork !== 'NeXO') {
+            console.log('UPDATE *******Network Selected: ' + this.currentOntology);
+
+            if (this.currentOntology !== 'NEXO') {
                 // No need to update
                 return;
             }
@@ -74,16 +68,47 @@ define([
             this.render();
         },
 
+        render: function () {
+            $(CYTOSCAPE_TAG).cytoscape(this.initSubnetworkView());
+        },
+
+        networkSelected: function (e) {
+            var network = e[0];
+            var currentNetwork = network.get('name');
+            if (this.model !== undefined && currentNetwork !== undefined) {
+                this.model.set('currentNetworkName', currentNetwork);
+                this.model.set('currentNetwork', network);
+            }
+            this.currentOntology = network.get('config').ontologyType;
+
+            console.log('**********************************Network Selected: ' + currentNetwork);
+        },
+
+
         loadData: function () {
             var self = this;
-            $(CYTOSCAPE_TAG).append(WAITING_BAR);
+
+            console.log('URL ===> ' + this.model.url);
             this.model.fetch({
                 success: function (data) {
 
+                    console.log(data);
                     var graph = data.attributes.graph;
+                    console.log('Node Count = ' + graph.elements.nodes.length);
+
+                    if (graph.elements.nodes.length === 0) {
+
+                        console.log('Too big to display.');
+                        $(CYTOSCAPE_TAG)
+                            .append('<h2 style="padding-left: 20; margin-top: 0; color: #ffffff">Too many to display.</h2>');
+                        return;
+                    }
+
+                    $(CYTOSCAPE_TAG).append(WAITING_BAR);
                     var cy = self.model.get('cy');
 
                     EventHelper.trigger('subnetworkRendered', graph);
+
 
                     cy.load(graph.elements,
 
@@ -113,11 +138,11 @@ define([
             });
         },
 
-        setNodeSelectedListener: function() {
+        setNodeSelectedListener: function () {
             var cy = this.model.get('cy');
             console.log('CY is ***************** ' + cy);
-            cy.$('node').on('click', function(evt){
-                console.log( 'CLICK ' + evt.cyTarget.id() );
+            cy.$('node').on('click', function (evt) {
+                console.log('CLICK ' + evt.cyTarget.id());
                 EventHelper.trigger(EventHelper.SUBNETWORK_NODE_SELECTED, evt.cyTarget.id());
             });
         },

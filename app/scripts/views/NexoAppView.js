@@ -75,6 +75,7 @@ define([
 
                 EventHelper.listenTo(networkCollection, EventHelper.NETWORK_SELECTED, _.bind(self.model.loadNetworkDataFile, self.model));
                 EventHelper.listenTo(networkCollection, EventHelper.NETWORK_SELECTED, _.bind(subNetworkView.networkSelected, subNetworkView));
+                EventHelper.listenTo(networkCollection, EventHelper.NETWORK_SELECTED, _.bind(summaryView.networkSelected, summaryView));
 
                 // Listening to the current network view change event.
                 self.listenTo(self.model, 'change:currentNetworkView', self.networkViewSwitched);
