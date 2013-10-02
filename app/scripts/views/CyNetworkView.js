@@ -50,8 +50,6 @@ define([
                 currentNetwork = 'NeXO';
             }
 
-            console.log('UPDATE *******Network Selected: ' + this.currentOntology);
-
             if (this.currentOntology !== 'NEXO') {
                 // No need to update
                 return;
@@ -65,11 +63,12 @@ define([
                 this.model.updateURL();
             }
 
-            this.render();
+            console.log('TGT = ' + nodeId);
+            this.render(nodeId);
         },
 
-        render: function () {
-            $(CYTOSCAPE_TAG).cytoscape(this.initSubnetworkView());
+        render: function (nodeId) {
+            $(CYTOSCAPE_TAG).cytoscape(this.initSubnetworkView(nodeId));
         },
 
         networkSelected: function (e) {
@@ -87,8 +86,8 @@ define([
 
         loadData: function () {
             var self = this;
+            console.log('Raw Interaction URL ===> ' + this.model.url);
 
-            console.log('URL ===> ' + this.model.url);
             this.model.fetch({
                 success: function (data) {
 
@@ -121,18 +120,16 @@ define([
                                 return {
                                     name: 'arbor',
                                     friction: 0.1,
-                                    nodeMass: 2,
-                                    edgeLength: 5.5
+                                    nodeMass: 10,
+                                    padding: [ 20, 20, 20, 20 ],
+                                    edgeLength: 11.5
                                 };
                             }
                         })()
                         ), function () {
                             console.log('Layout finished.');
                             self.setNodeSelectedListener();
-
                             $('#fadingBarsG').remove();
-//                            VIEW_MANAGER.setSubnetwork(cy.elements);
-
                         });
                 }
             });
@@ -147,7 +144,9 @@ define([
             });
         },
 
-        initSubnetworkView: function () {
+        initSubnetworkView: function (targetGene) {
+
+            console.log(targetGene);
 
             var self = this;
 
@@ -155,7 +154,7 @@ define([
                 showOverlay: false,
                 boxSelectionEnabled: false,
                 minZoom: 0.1,
-                maxZoom: 5,
+                maxZoom: 15,
 
                 elements: {
                     nodes: [],
@@ -168,12 +167,13 @@ define([
                     self.loadData();
                 },
 
+                // Visual Style for raw interaction view.
                 style: cytoscape.stylesheet()
                     .selector('node')
                     .css({
                         'font-family': 'Roboto',
-                        'font-size': 4,
-                        'font-weight': 100,
+                        'font-size': '14px',
+                        'font-weight': 300,
                         'content': 'data(id)',
                         'text-halign': 'right',
                         'text-valign': 'bottom',
@@ -186,17 +186,50 @@ define([
                     })
                     .selector(':selected')
                     .css({
-                        'background-color': 'rgba(255,94,25,0.7)',
+                        'background-color': 'rgba(255,94,25,0.9)',
                         'color': 'rgba(255,94,25,0.9)',
-                        'font-size': '8px',
-                        'line-color': '#000',
+                        'font-size': '24px',
+                        'width': 30,
+                        'height': 30,
+                        'shape': 'heptagon',
+                        'font-weight': 700
+                    })
+                    .selector('node[sgd = "' + targetGene + '"]')
+                    .css({
+                        'background-color': '#00ee11',
+                        'color': '#00ee11',
+                        'font-size': '24px',
+                        'width': 30,
+                        'height': 30,
+                        'shape': 'hexagon',
                         'font-weight': 700
                     })
                     .selector('edge')
                     .css({
-                        'width': 0.5,
+                        'width': 0.7,
+                        'text-opacity': 0.4,
+                        'content': 'data(interaction)',
+                        'color': '#999999',
+                        'font-size': '4px',
+                        'font-weight': 100,
                         'line-color': '#00ee11',
+                        'line-style': 'solid',
                         'opacity': 0.8
+                    })
+                    .selector('edge[interaction = "yeastNet"]')
+                    .css({
+                        'line-color': '#e8a27c'
+                    })
+                    .selector('edge[interaction = "genetic"]')
+                    .css({
+                        'line-style': 'dashed',
+                        'line-color': '#FFA103'
+                    })
+                    .selector('edge[interaction = "co-expression"]')
+                    .css({
+                        'width': 0.2,
+                        'line-style': 'dotted',
+                        'line-color': '#00ee11'
                     })
                 };
 
