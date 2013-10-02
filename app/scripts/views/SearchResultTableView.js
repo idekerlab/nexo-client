@@ -73,6 +73,9 @@ define([
         },
 
 
+        /**
+         * This function will be called when user switches the ontology tree.
+         */
         currentNetworkChanged: function (e) {
             var currentNetwork = e.get('currentNetwork');
 
@@ -81,6 +84,9 @@ define([
             var nameSpace = parts[0].toUpperCase();
             this.nameSpace = nameSpace;
             this.currentNetwork = currentNetwork;
+
+            // Reset search result when switching ontology tree.
+            this.clearButtonPressed();
         },
 
 
