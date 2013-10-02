@@ -14,14 +14,11 @@ define([
     'underscore',
     'backbone',
     'models/NodeDetails',
-    'views/SigmaRenderer',
     'highcharts'
 
-], function (_, Backbone, NodeDetails, SigmaRenderer) {
+], function (_, Backbone, NodeDetails) {
 
     var ID_SUMMARY_PANEL = '#summary-panel';
-    //var interactionTab = '<li id="interactions-tab"><a href="#interactions" data-toggle="tab">Interactions</a></li>';
-    //var interactionContents = '<div class="tab-pane" id="interactions"></div>';
 
     var QUICK_GO_API = 'http://www.ebi.ac.uk/QuickGO/GTerm?id=';
     var SGD_API = 'http://www.yeastgenome.org/cgi-bin/locus.fpl?dbid=';
@@ -77,9 +74,6 @@ define([
             this.listenTo(this.model, 'change', this.render);
 
             this.$el.find('.float-ui').hide();
-
-//            $('#result-tab a:last').tab('show');
-//            $('#result-tab a[href="#details"]').tab('show');
         },
 
         tabClicked: function(e) {
@@ -550,9 +544,6 @@ define([
             var self = this;
             this.$el.show(400, 'swing', function () {
                 if (!self.isDisplayed) {
-                    var newWidth = $(document).width() - 550;
-                    SigmaRenderer.resize(newWidth, $(document).height()).draw();
-                    SigmaRenderer.position(0, 0, 1).draw();
                     self.isDisplayed = true;
                 }
             });
@@ -561,8 +552,6 @@ define([
         hide: function () {
             var self = this;
             this.$el.hide(400, 'swing', function () {
-                SigmaRenderer.resize($(document).width(), $(document).height()).draw();
-                SigmaRenderer.position(0, 0, 1).draw();
                 self.isDisplayed = false;
             });
         }
