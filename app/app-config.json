@@ -47,7 +47,7 @@
         {
             "name": "GO Biological Process",
             "ontologyType": "BP",
-            "networkData": "new-bp-info.json",
+            "networkData": "sigma-weighted-bp-info.json",
 
             "sigma": {
                 "drawingProperties": {
@@ -82,7 +82,7 @@
         {
             "name": "GO Cellular Component",
             "ontologyType": "CC",
-            "networkData": "new-cc-info.json",
+            "networkData": "sigma-weighted-cc-info.json",
 
             "sigma": {
                 "drawingProperties": {
@@ -116,7 +116,7 @@
         {
             "name": "GO Molecular Function",
             "ontologyType": "MF",
-            "networkData": "new-mf-info.json",
+            "networkData": "sigma-weighted-mf-info.json",
 
             "sigma": {
                 "drawingProperties": {
