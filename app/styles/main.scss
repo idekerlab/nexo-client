@@ -149,34 +149,6 @@ h4 {
   /*background-image: url('../images/close32.png');*/
 }
 
-#commands {
-  color: rgb(110, 110, 110);
-  opacity: 0.9;
-  font-size: 48px;
-  z-index: 100;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  text-align: center;
-  /*border: 1px solid #a6a6a6;*/
-}
-
-#commands .z, .s {
-  width: 48px;
-  height: 48px;
-  margin-right: 20px;
-  cursor: pointer;
-  float: left;
-}
 
 .tabbable {
   padding-right: 10px;
@@ -261,6 +233,35 @@ h4 {
   -ms-user-select: none;
   user-select: none;
 
+}
+
+#commands {
+  color: rgb(110, 110, 110);
+  opacity: 0.8;
+  font-size: 48px;
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  /*border: 1px solid #a6a6a6;*/
+}
+
+#commands .z, .s {
+  width: 48px;
+  height: 48px;
+  margin-right: 20px;
+  cursor: pointer;
+  float: left;
 }
 
 #commands .popover {
