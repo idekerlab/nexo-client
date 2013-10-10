@@ -27,12 +27,15 @@ define([
 
     var CONFIG_FILE = '/dist/app-config.json';
 
+
     var NexoAppView = Backbone.View.extend({
 
         el: 'body',
 
         initialize: function () {
             var self = this;
+
+
             this.model = new NexoAppModel({settingFileLocation: CONFIG_FILE});
 
             // Initialize sub components of this view
@@ -85,7 +88,9 @@ define([
                 EventHelper.listenTo(EventHelper, 'subnetworkRendered', _.bind(summaryView.interactionRenderer, summaryView));
 
                 EventHelper.listenTo(EventHelper, EventHelper.ENRICHED, _.bind(enrichView.processResult, enrichView));
+
             });
+
         },
 
         networkViewSwitched: function () {

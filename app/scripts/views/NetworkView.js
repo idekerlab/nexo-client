@@ -22,6 +22,12 @@ define([
     var SELECTED_NODE_COLOR = 'rgb(70,130,180)';
     var QUERY_NODE_COLOR = 'rgb(255,94,25)';
 
+    var LOADING_ICON = '<div id="facebookG">' +
+        '<div id="blockG_1" class="facebook_blockG"></div>' +
+        '<div id="blockG_2" class="facebook_blockG"></div>' +
+        '<div id="blockG_3" class="facebook_blockG"></div>' +
+        '</div>';
+
     var NetworkView = Backbone.View.extend({
 
         el: '#sigma-canvas',
@@ -33,6 +39,9 @@ define([
         initialize: function () {
             var self = this;
 
+            // Add waiting icon
+            $('.loading').append(LOADING_ICON);
+
             SigmaRenderer.bind('upnodes', function (nodes) {
                 var selectedNodeId = nodes.content[0];
                 var networkName = self.model.get('name');
@@ -43,6 +52,7 @@ define([
                 }
             });
             self.bindCommands();
+
 
             // Render the network once its model is ready.
             EventHelper.listenToOnce(EventHelper, EventHelper.NETWORK_LOADED, _.bind(this.render, this));
@@ -78,6 +88,9 @@ define([
 
             SigmaRenderer.refresh();
             SigmaRenderer.draw();
+
+            // Remove Load icon
+            $('#facebookG').remove();
         },
 
 
