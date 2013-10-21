@@ -203,7 +203,7 @@ define([
                 if (command === 'species') {
                     button.tooltip({delay: { show: 200, hide: 100 }});
                     button.attr('data-content',
-                        '<ul class="nav nav-pills nav-stacked disabled"><li><Strong>Yeast</Strong></li><li>Fly</li><li>Mouse</li></ul>');
+                        '<ul class="nav nav-pills nav-stacked disabled"><li><Strong>Yeast</Strong></li><ul>');
                 }
             });
         },
