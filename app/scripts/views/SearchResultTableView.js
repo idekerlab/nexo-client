@@ -44,7 +44,20 @@ define([
             'click #enrich-submit': 'runEnrichment',
             'click #enrich-reset': 'resetButtonPressed',
 
+            'mouseenter': 'show',
+            'mouseleave': 'hide',
+
             'click tr': 'rowClick'
+        },
+
+        show: function() {
+            this.$el.animate({width: '500px'});
+            this.$('#result-table').show(600);
+        },
+
+        hide: function() {
+            this.$('#result-table').hide(600);
+            this.$el.animate({width: '350px'});
         },
 
         rowClick: function (row) {
