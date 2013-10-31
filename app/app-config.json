@@ -28,8 +28,8 @@
                 "graphProperties": {
                     "minNodeSize": 0.5,
                     "maxNodeSize": 19,
-                    "minEdgeSize": 0.2,
-                    "maxEdgeSize": 3
+                    "minEdgeSize": 2,
+                    "maxEdgeSize": 7
                 },
                 "mouseProperties": {
                     "minRatio": 0.7,
