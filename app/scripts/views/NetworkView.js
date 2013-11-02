@@ -400,7 +400,7 @@ define([
                     node.color = QUERY_NODE_COLOR;
                     node.attr.grey = false;
                     node.forceLabel = true;
-                } else if (children[node.id]) {
+                } else if (children !== undefined && children[node.id]) {
                     node.color = CHILD_NODE_COLOR;
                     node.attr.grey = false;
                     node.forceLabel =true;

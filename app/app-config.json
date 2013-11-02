@@ -69,8 +69,8 @@
                 "graphProperties": {
                     "minNodeSize": 0.1,
                     "maxNodeSize": 8,
-                    "minEdgeSize": 1,
-                    "maxEdgeSize": 3
+                    "minEdgeSize": 2,
+                    "maxEdgeSize": 7
                 },
                 "mouseProperties": {
                     "minRatio": 0.7,
@@ -104,8 +104,8 @@
                 "graphProperties": {
                     "minNodeSize": 0.2,
                     "maxNodeSize": 9,
-                    "minEdgeSize": 1,
-                    "maxEdgeSize": 3
+                    "minEdgeSize": 2,
+                    "maxEdgeSize": 7
                 },
                 "mouseProperties": {
                     "minRatio": 0.7,
@@ -138,8 +138,8 @@
                 "graphProperties": {
                     "minNodeSize": 0.1,
                     "maxNodeSize": 8,
-                    "minEdgeSize": 1,
-                    "maxEdgeSize": 3
+                    "minEdgeSize": 2,
+                    "maxEdgeSize": 7
                 },
                 "mouseProperties": {
                     "minRatio": 0.7,
